@@ -1,0 +1,161 @@
+{
+  "gecontroleerd": "2026-10-14",
+  "inkopers": [
+    {
+      "naam": "flipBack",
+      "url": "https://flipback.nl/verkopen",
+      "affiliate_url": null,
+      "geld": true,
+      "uitbetaling": "SEPA Instant of PayPal",
+      "termijn": "Dezelfde dag na controle",
+      "retour": "ja",
+      "kapot": "onbekend",
+      "notitie": "Duits bedrijf (DIS-CONNECT GmbH, Karlsruhe).",
+      "bron": "https://flipback.nl"
+    },
+    {
+      "naam": "GSMLoket",
+      "url": "https://www.gsmloket.nl/nl",
+      "affiliate_url": null,
+      "geld": true,
+      "uitbetaling": "Bankoverschrijving",
+      "termijn": "Binnen 24 uur na controle",
+      "retour": "onbekend",
+      "kapot": "ja",
+      "notitie": "Kapotte toestellen tegen een lagere waarde.",
+      "bron": "https://www.gsmloket.nl/nl/hoe-werkt-het/veelgestelde-vragen"
+    },
+    {
+      "naam": "Leapp",
+      "url": "https://verkopen.leapp.nl",
+      "affiliate_url": null,
+      "geld": true,
+      "uitbetaling": "Geld op je rekening",
+      "termijn": "1 tot 2 dagen na goedkeuring",
+      "retour": "ja",
+      "kapot": "ja",
+      "notitie": "Inkoop via Trade in, hetzelfde platform als Verkopen.nl.",
+      "bron": "https://verkopen.leapp.nl/en/frequently-asked-questions"
+    },
+    {
+      "naam": "NomoPhone",
+      "url": "https://nomophone.com/nl/buyback",
+      "affiliate_url": null,
+      "geld": true,
+      "uitbetaling": "Bankoverschrijving",
+      "termijn": "Binnen 24 werkuren na controle",
+      "retour": "ja",
+      "kapot": "ja",
+      "notitie": "Frans bedrijf (Reims).",
+      "bron": "https://nomophone.com/nl/cgr"
+    },
+    {
+      "naam": "Rebuy",
+      "url": "https://www.rebuy.nl/verkopen/telefoons",
+      "affiliate_url": null,
+      "geld": true,
+      "uitbetaling": "Bank, PayPal of waardebon (waardebon 10% meer waard)",
+      "termijn": "2 tot 7 werkdagen na akkoord",
+      "retour": "ja",
+      "kapot": "nee",
+      "notitie": "",
+      "bron": "https://www.rebuy.nl/legal/terms-and-conditions"
+    },
+    {
+      "naam": "refurbed",
+      "url": "https://www.refurbed.nl/verkopen/",
+      "affiliate_url": null,
+      "geld": true,
+      "uitbetaling": "Bankoverschrijving",
+      "termijn": "Binnen 7 werkdagen na controle",
+      "retour": "ja",
+      "kapot": "nee",
+      "notitie": "Alleen werkende toestellen zonder sim- of netlock.",
+      "bron": "https://www.refurbed.nl/veelgestelde-vragen/"
+    },
+    {
+      "naam": "Swappie",
+      "url": "https://swappie.com/nl/verkoop/",
+      "affiliate_url": null,
+      "geld": true,
+      "uitbetaling": "Bankoverschrijving",
+      "termijn": "1 tot 3 werkdagen na akkoord",
+      "retour": "ja",
+      "kapot": "ja",
+      "notitie": "",
+      "bron": "https://swappie.com/nl/verkoop/"
+    },
+    {
+      "naam": "Verkopen.nl",
+      "url": "https://www.verkopen.nl/telefoon",
+      "affiliate_url": null,
+      "geld": true,
+      "uitbetaling": "Geld op je rekening",
+      "termijn": "1 tot 2 dagen na goedkeuring",
+      "retour": "ja",
+      "kapot": "ja",
+      "notitie": "Inkoop via Trade in, hetzelfde platform als Leapp.",
+      "bron": "https://www.verkopen.nl/veelgestelde-vragen"
+    },
+    {
+      "naam": "Verkoopmijntelefoon.nl",
+      "url": "https://verkoopmijntelefoon.nl/verkopen/",
+      "affiliate_url": null,
+      "geld": true,
+      "uitbetaling": "Geld op je rekening",
+      "termijn": "12 tot 24 uur na controle",
+      "retour": "onbekend",
+      "kapot": "ja",
+      "notitie": "Terugsturen kan; of dat gratis is, staat er niet bij. Geen toestellen met waterschade.",
+      "bron": "https://verkoopmijntelefoon.nl"
+    },
+    {
+      "naam": "Apple Trade In",
+      "url": "https://www.apple.com/nl/shop/trade-in",
+      "affiliate_url": null,
+      "geld": false,
+      "uitbetaling": "Korting, tegoed of Apple Gift Card",
+      "termijn": "3 tot 5 werkdagen na controle",
+      "retour": "onbekend",
+      "kapot": "nee",
+      "notitie": "Kapotte toestellen niet via de website.",
+      "bron": "https://www.apple.com/nl/shop/trade-in"
+    },
+    {
+      "naam": "Coolblue",
+      "url": "https://www.coolblue.nl/advies/alles-over-smartphone-upgrade.html",
+      "affiliate_url": null,
+      "geld": false,
+      "uitbetaling": "Korting op een nieuw toestel of Coolblue-tegoed",
+      "termijn": "Binnen 7 werkdagen",
+      "retour": "ja",
+      "kapot": "ja",
+      "notitie": "Inruilen kan alleen in een winkel; het toestel moet nog aangaan.",
+      "bron": "https://www.coolblue.nl/advies/alles-over-smartphone-upgrade.html"
+    },
+    {
+      "naam": "MediaMarkt",
+      "url": "https://inruilservice.mediamarkt.nl/",
+      "affiliate_url": null,
+      "geld": false,
+      "uitbetaling": "MediaMarkt-cadeaubon",
+      "termijn": "Binnen 7 dagen na controle",
+      "retour": "onbekend",
+      "kapot": "onbekend",
+      "notitie": "",
+      "bron": "https://inruilservice.mediamarkt.nl/faq/"
+    },
+    {
+      "naam": "KPN Trade-in",
+      "url": "https://tradein.recommerce.com/#/kpn/nl",
+      "affiliate_url": null,
+      "geld": true,
+      "uitbetaling": "Bankoverschrijving",
+      "termijn": "Binnen 5 werkdagen na goedkeuring",
+      "retour": "nee",
+      "kapot": "onbekend",
+      "notitie": "Weiger je het nieuwe bod, dan betaal je zelf de retourzending.",
+      "bron": "https://assets.recommerce.com/clc/kpn/nl/RCS_Algemene_voorwaarden_trade_in_KPN.pdf"
+    }
+  ]
+}
