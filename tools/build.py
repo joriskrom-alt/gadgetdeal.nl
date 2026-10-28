@@ -182,10 +182,10 @@ def sim_only() -> None:
   <p class="lead">Wie een nieuwe telefoon koopt, kan vaak ook besparen op zijn abonnement. Met een losse telefoon heb je alleen een simkaart nodig.</p>
   <h2>Waar je op let</h2>
   <ul>
-    <li><strong>Data per maand.</strong> Kijk in je instellingen hoeveel je nu gemiddeld gebruikt, en kies niet veel meer.</li>
+    <li><strong>Data per maand.</strong> Kijk in je instellingen hoeveel je nu gemiddeld gebruikt, en kies niet veel meer. <a href="/uitleg/hoeveel-data-heb-ik-nodig/">Zo zie je je verbruik</a>.</li>
     <li><strong>Looptijd.</strong> Een maandelijks opzegbaar abonnement is soms iets duurder, maar je zit nergens aan vast.</li>
     <li><strong>Netwerk.</strong> Er zijn in Nederland drie mobiele netwerken: KPN, Vodafone en Odido. De meeste andere aanbieders gebruiken een van die drie. Aanbieders op hetzelfde netwerk hebben hetzelfde bereik.</li>
-    <li><strong>Overstappen.</strong> Je kunt je nummer meestal meenemen; dat regelt de nieuwe aanbieder.</li>
+    <li><strong>Overstappen.</strong> Je kunt je nummer meestal meenemen; dat regelt de nieuwe aanbieder. <a href="/uitleg/overstappen-naar-sim-only/">Zo werkt overstappen</a>.</li>
   </ul>
   <h2>Aanbieders per netwerk</h2>
   {blokken}
@@ -205,6 +205,8 @@ def uitleg() -> None:
     <li><strong>Je iPhone klaarmaken voor verkoop</strong>Back-up, uitloggen en wissen, in de juiste volgorde.<br><a href="/uitleg/iphone-klaarmaken-voor-verkoop/">Lees de stappen</a></li>
     <li><strong>Geld of tegoed?</strong>Wanneer een cadeaubon slim is, en wanneer niet.<br><a href="/uitleg/geld-of-tegoed/">Lees meer</a></li>
     <li><strong>Een inkoper kiezen</strong>Wat er gebeurt als ze na controle minder bieden.<br><a href="/uitleg/inkoper-kiezen/">Lees meer</a></li>
+    <li><strong>Overstappen naar sim only</strong>Je nummer meenemen en wanneer je kosteloos opzegt.<br><a href="/uitleg/overstappen-naar-sim-only/">Lees meer</a></li>
+    <li><strong>Hoeveel data heb ik nodig?</strong>Zo zie je je eigen verbruik en kies je de juiste bundel.<br><a href="/uitleg/hoeveel-data-heb-ik-nodig/">Lees meer</a></li>
   </ul>
 </article>
 """)
@@ -260,6 +262,61 @@ def uitleg() -> None:
     <li>Vraag bij twee of drie inkopers een bod aan. Er is niet één inkoper die altijd het meest biedt.</li>
   </ul>
   <p class="source">Bronnen: <a href="https://www.consumentenbond.nl/nieuws/2017/grote-verschillen-tussen-inkoopsites-voor-smartphones" rel="nofollow noopener">Consumentenbond (2017)</a>, <a href="https://www.consumentenbond.nl/smartphone/smartphone-verkopen-online" rel="nofollow noopener">Consumentenbond, telefoon verkopen</a>, en de voorwaarden van de inkopers (gecontroleerd op {GECONTROLEERD}).</p>
+</article>
+""")
+
+    page("/uitleg/overstappen-naar-sim-only/", "Overstappen naar sim only met je eigen nummer | GadgetDeal",
+         "Zo stap je over naar een sim-only-abonnement: je nummer meenemen, wanneer je kosteloos opzegt en wat de nieuwe aanbieder voor je regelt.", f"""
+<article class="wrap prose">
+  <h1>Overstappen naar sim only</h1>
+  <p class="lead">Nieuwe telefoon gekocht en je oude verkocht? Dan heb je geen abonnement met toestel meer nodig. Met sim only betaal je alleen voor bellen en internet, en je kunt je eigen nummer houden.</p>
+  <h2>Check eerst je huidige contract</h2>
+  <p>Kijk in je account bij je huidige aanbieder tot wanneer je vaste looptijd loopt.</p>
+  <ul>
+    <li><strong>Is je vaste looptijd voorbij?</strong> Dan kun je kosteloos opzeggen. De opzegtermijn is dan maximaal een maand.</li>
+    <li><strong>Loopt je contract nog?</strong> Dan kun je meestal wel opzeggen, maar vaak tegen kosten. Wat je betaalt, staat in je contract.</li>
+  </ul>
+  <h2>Je nummer meenemen</h2>
+  <p>Dat heet nummerbehoud. Je regelt het bij je <strong>nieuwe</strong> aanbieder: bij het afsluiten geef je aan dat je je nummer wilt meenemen. De nieuwe en de oude aanbieder regelen de overstap dan onderling. Je oude abonnement wordt daarbij meestal ook opgezegd, dus je hoeft dat niet zelf te doen.</p>
+  <p class="note">Zeg je oude abonnement niet zelf op vóór de overstap rond is. Dan kan je nummer verloren gaan. Gebeurt de opzegging niet automatisch, zeg dan na de overstap zelf op om dubbele kosten te voorkomen.</p>
+  <h2>Zo stap je over</h2>
+  <ol>
+    <li>Bekijk hoeveel data je nodig hebt. <a href="/uitleg/hoeveel-data-heb-ik-nodig/">Zo zie je je verbruik</a>.</li>
+    <li>Kies een aanbieder. Aanbieders op hetzelfde netwerk hebben hetzelfde bereik. <a href="/sim-only/">Bekijk de aanbieders per netwerk</a>.</li>
+    <li>Sluit het abonnement af en kies voor nummerbehoud. Houd je huidige nummer en je klantnummer bij de oude aanbieder bij de hand.</li>
+    <li>Wacht op je nieuwe simkaart of eSIM, en activeer hem op de datum die je nieuwe aanbieder doorgeeft.</li>
+  </ol>
+  <p class="source">Bronnen: <a href="https://www.acm.nl/nl/node/24843" rel="nofollow noopener">ACM, opzeggen of overstappen van uw telecomabonnement</a> en <a href="https://www.mobiel.nl/vragen-en-contact/providers/wat-is-belangrijk-om-te-weten-over-mijn-abonnement/opzeggen" rel="nofollow noopener">Mobiel.nl, opzeggen</a>. Gecontroleerd op 28 oktober 2026. De precieze voorwaarden verschillen per aanbieder.</p>
+</article>
+""")
+
+    page("/uitleg/hoeveel-data-heb-ik-nodig/", "Hoeveel mobiele data heb ik nodig? | GadgetDeal",
+         "Zo bekijk je op je iPhone of Android hoeveel mobiele data je gebruikt, en kies je een sim-only-bundel die past.", f"""
+<article class="wrap prose">
+  <h1>Hoeveel data heb ik nodig?</h1>
+  <p class="lead">De beste maat ben je zelf. Kijk hoeveel je de afgelopen maanden echt hebt gebruikt, in plaats van te gokken.</p>
+  <h2>Je verbruik bekijken op een iPhone</h2>
+  <ol>
+    <li>Ga naar <strong>Instellingen &gt; Mobiel netwerk</strong>.</li>
+    <li>Scroll omlaag. Je ziet het totaal en per app hoeveel mobiele data die gebruikte.</li>
+    <li>Let op: dit verbruik telt over een bepaalde periode; welke, staat onderaan de lijst. Onderaan kun je met <strong>Stel gegevens opnieuw in</strong> de teller op nul zetten. Doe dat aan het begin van je bundelmaand, dan zie je na een maand precies wat je gebruikt.</li>
+  </ol>
+  <h2>Je verbruik bekijken op Android</h2>
+  <ol>
+    <li>Ga naar <strong>Instellingen &gt; Netwerk en internet &gt; Simkaarten</strong>.</li>
+    <li>Tik op <strong>Datagebruik van app</strong> voor het verbruik per app.</li>
+  </ol>
+  <p>De namen van menu's verschillen per merk en Android-versie. Vind je ze niet, zoek dan in Instellingen naar 'datagebruik'.</p>
+  <h2>Ook je huidige aanbieder weet het</h2>
+  <p>In de app of het online account van je aanbieder zie je meestal je verbruik per maand. Kijk naar een paar maanden, want het verschilt per maand, bijvoorbeeld als je op vakantie bent geweest.</p>
+  <h2>Een bundel kiezen</h2>
+  <ul>
+    <li>Neem je hoogste verbruik van de afgelopen maanden, met een kleine marge erbovenop.</li>
+    <li>Kom je soms net tekort? Vergelijk dan wat een iets grotere bundel kost met wat extra data bijkopen je per keer kost.</li>
+    <li>Gebruik je veel wifi, thuis en op werk of school, dan heb je vaak minder mobiele data nodig dan je denkt.</li>
+  </ul>
+  <p><a href="/sim-only/">Bekijk de sim-only-aanbieders per netwerk</a></p>
+  <p class="source">Bronnen voor de menupaden: <a href="https://www.iculture.nl/tips/dataverbruik-apps-iphone/" rel="nofollow noopener">iCulture (iPhone)</a> en <a href="https://www.androidplanet.nl/tips/dataverbruik-controleren-op-android/" rel="nofollow noopener">Android Planet (Android)</a>. Gecontroleerd op 28 oktober 2026.</p>
 </article>
 """)
 
