@@ -135,3 +135,4 @@ a:hover { text-decoration-thickness: 2px; }
 .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
 .cards li a { display: inline-block; margin-top: 6px; }
 .prose ul.cards { padding-left: 0; }
+.buyers td small.source { display: block; margin-top: 4px; }

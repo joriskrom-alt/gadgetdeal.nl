@@ -23,6 +23,8 @@ def nl_datum(iso: str) -> str:
 
 
 GECONTROLEERD = nl_datum(DATA["gecontroleerd"])
+SITE = "https://www.gadgetdeal.nl"
+LAATST_BIJGEWERKT = "2026-10-28"
 
 NAV = [
     ("/", "Telefoon verkopen"),
@@ -44,6 +46,13 @@ def page(path: str, title: str, description: str, body: str, scripts: str = "") 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{escape(title)}</title>
 <meta name="description" content="{escape(description)}">
+<link rel="canonical" href="{SITE}{path}">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="{escape(title)}">
+<meta property="og:description" content="{escape(description)}">
+<meta property="og:url" content="{SITE}{path}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -90,14 +99,16 @@ def buyer_row(b: dict, group: str) -> str:
     rel = "sponsored noopener" if b["affiliate_url"] else "nofollow noopener"
     paid = '<span class="paid">Wij ontvangen commissie via deze link</span>' if b["affiliate_url"] else ""
     note = f"<small>{escape(b['notitie'])}</small>" if b["notitie"] else ""
+    via = (' <small class="source">via <a href="https://nomophone.com/nl/guides/marche/waar-telefoon-verkopen-vergelijking" rel="nofollow noopener">NomoPhone</a></small>'
+           if b.get("via") else "")
     return f"""<tr data-naam="{escape(b['naam'])}" data-group="{group}" data-geld="{str(b['geld']).lower()}" data-retour="{b['retour']}" data-kapot="{b['kapot']}">
   <th scope="row">{escape(b['naam'])}{note}</th>
   <td data-label="Uitbetaling">{escape(b['uitbetaling'])}</td>
   <td data-label="Termijn">{escape(b['termijn'])}</td>
   <td data-label="Gratis retour bij een lager bod">{mark(b['retour'])}</td>
   <td data-label="Kapotte toestellen">{mark(b['kapot'])}</td>
-  <td data-label="Bron"><a class="source" href="{escape(b['bron'])}" rel="nofollow noopener">Voorwaarden</a></td>
-  <td class="cta"><a class="go" href="{escape(link)}" rel="{rel}" target="_blank" aria-label="Bod opvragen bij {escape(b['naam'])}">Bod opvragen</a>{paid}</td>
+  <td data-label="Bron"><a class="source" href="{escape(b['bron'])}" rel="nofollow noopener">Bron</a>{via}</td>
+  <td class="cta"><a class="go" href="{escape(link)}" rel="{rel}" target="_blank" aria-label="{escape(b['knop'])} bij {escape(b['naam'])}">{escape(b['knop'])}</a>{paid}</td>
 </tr>"""
 
 
@@ -116,7 +127,7 @@ def home() -> None:
   <div>
     <h1>Waar verkoop je je oude telefoon?</h1>
     <p>Elke inkoper doet je een bod, maar de voorwaarden verschillen. Krijg je geld of een cadeaubon? Krijg je je telefoon gratis terug als ze na controle minder bieden?</p>
-    <p>Hier zie je het naast elkaar, uit de voorwaarden van {total} inkopers.</p>
+    <p>Hier zie je het naast elkaar voor {total} inkopers, met bij elke inkoper een link naar de bron. <a href="/hoe-wij-vergelijken/">Welke inkopers we opnemen</a></p>
   </div>
   <form class="label" id="filters" aria-describedby="count">
     <div class="label-head"><span>Wat vind jij belangrijk?</span><small>Vink aan om te filteren</small></div>
@@ -132,7 +143,7 @@ def home() -> None:
 
 <section class="wrap results" aria-labelledby="vergelijking">
   <h2 id="vergelijking">Inkopers vergeleken</h2>
-  <p>Op alfabet, niet op hoe veel wij eraan verdienen. Prijzen tonen we nog niet: die hangen af van je model, opslag en de staat van je toestel. Vraag bij twee of drie inkopers een bod aan. Gecontroleerd op {GECONTROLEERD}.</p>
+  <p>Op alfabet, niet op hoeveel wij eraan verdienen. Prijzen tonen we nog niet: die hangen af van je model, opslag en de staat van je toestel. Vraag bij twee of drie inkopers een bod aan. Gecontroleerd op {GECONTROLEERD}.</p>
   <table class="buyers" id="buyers">
     <thead><tr><th scope="col">Inkoper</th><th scope="col">Uitbetaling</th><th scope="col">Termijn</th><th scope="col">Gratis retour bij een lager bod</th><th scope="col">Kapotte toestellen</th><th scope="col">Bron</th><th scope="col"><span style="position:absolute;left:-9999px">Link</span></th></tr></thead>
     <tbody>{rows}</tbody>
@@ -179,12 +190,12 @@ def sim_only() -> None:
     body = f"""
 <article class="wrap prose">
   <h1>Telefoon verkocht? Kies ook een abonnement</h1>
-  <p class="lead">Wie een nieuwe telefoon koopt, kan vaak ook besparen op zijn abonnement. Met een losse telefoon heb je alleen een simkaart nodig.</p>
+  <p class="lead">Heb je je oude telefoon verkocht en een nieuwe los gekocht? Dan heb je alleen nog een simkaart met een abonnement nodig: sim only.</p>
   <h2>Waar je op let</h2>
   <ul>
     <li><strong>Data per maand.</strong> Kijk in je instellingen hoeveel je nu gemiddeld gebruikt, en kies niet veel meer. <a href="/uitleg/hoeveel-data-heb-ik-nodig/">Zo zie je je verbruik</a>.</li>
-    <li><strong>Looptijd.</strong> Een maandelijks opzegbaar abonnement is soms iets duurder, maar je zit nergens aan vast.</li>
-    <li><strong>Netwerk.</strong> Er zijn in Nederland drie mobiele netwerken: KPN, Vodafone en Odido. De meeste andere aanbieders gebruiken een van die drie. Aanbieders op hetzelfde netwerk hebben hetzelfde bereik.</li>
+    <li><strong>Looptijd.</strong> Je kiest meestal tussen een vaste looptijd en maandelijks opzegbaar. Vergelijk de prijs van beide.</li>
+    <li><strong>Netwerk.</strong> Er zijn in Nederland drie landelijke mobiele netwerken: KPN, Vodafone en Odido. Andere aanbieders gebruiken een van die drie. Hieronder zie je welke.</li>
     <li><strong>Overstappen.</strong> Je kunt je nummer meestal meenemen; dat regelt de nieuwe aanbieder. <a href="/uitleg/overstappen-naar-sim-only/">Zo werkt overstappen</a>.</li>
   </ul>
   <h2>Aanbieders per netwerk</h2>
@@ -193,7 +204,7 @@ def sim_only() -> None:
 </article>
 """
     page("/sim-only/", "Sim only kiezen na je nieuwe telefoon | GadgetDeal",
-         "Waar je op let bij een sim-only-abonnement, met alle aanbieders per netwerk op een rij.", body)
+         "Waar je op let bij een sim-only-abonnement, met de aanbieders per netwerk op een rij.", body)
 
 
 def uitleg() -> None:
@@ -215,16 +226,16 @@ def uitleg() -> None:
          "Zo maak je je iPhone klaar voor verkoop: back-up maken, uitloggen bij je Apple-account en alles wissen.", """
 <article class="wrap prose">
   <h1>Je iPhone klaarmaken voor verkoop</h1>
-  <p class="lead">Een inkoper kan een iPhone die nog aan jouw Apple-account hangt niet doorverkopen. Doe deze stappen in deze volgorde.</p>
+  <p class="lead">Een inkoper kan een iPhone die nog aan jouw Apple-account gekoppeld is niet doorverkopen. Doe deze stappen in deze volgorde.</p>
   <ol>
-    <li><strong>Maak een back-up.</strong> Via iCloud of op je computer, zodat je je foto's, berichten en apps op je nieuwe telefoon terugzet.</li>
-    <li><strong>Ontkoppel je Apple Watch</strong>, als je die hebt, via de Watch-app.</li>
-    <li><strong>Log uit bij je Apple-account.</strong> Ga naar Instellingen, tik op je naam en kies 'Log uit'. Daarmee zet je ook 'Zoek mijn' uit.</li>
-    <li><strong>Wis je iPhone.</strong> Ga naar Instellingen &gt; Algemeen &gt; 'Zet over of stel iPhone opnieuw in' &gt; 'Wis alle inhoud en instellingen'.</li>
-    <li><strong>Haal je simkaart eruit.</strong> Gebruik je een eSIM, vraag dan je provider hoe je die overzet naar je nieuwe telefoon.</li>
-    <li><strong>Noteer je IMEI-nummer en maak foto's.</strong> Het IMEI-nummer zie je door *#06# te bellen. Foto's van de staat helpen als de inkoper na controle een lager bod doet.</li>
+    <li><strong>Maak een back-up.</strong> Tik in Instellingen op je naam, dan op iCloud &gt; iCloud-back-up, en kies 'Maak nu back-up'. Of maak een back-up op je computer.</li>
+    <li><strong>Log uit bij iCloud.</strong> Tik in Instellingen op je naam en kies 'Log uit'.</li>
+    <li><strong>Wis je iPhone.</strong> Sluit hem aan op de lader. Ga naar Instellingen &gt; Algemeen &gt; 'Zet over of stel iPhone opnieuw in' en kies 'Wis alle content en instellingen'. Je hebt je toegangscode en het wachtwoord van je Apple-account nodig.</li>
+    <li><strong>Haal je simkaart eruit.</strong> Gebruik je een eSIM die je niet meer nodig hebt, wis die dan ook.</li>
+    <li><strong>Noteer je IMEI-nummer en maak foto's.</strong> Het IMEI-nummer zie je door *#06# in te toetsen. Foto's van de staat helpen als de inkoper na controle een lager bod doet.</li>
   </ol>
-  <p class="note">Doe stap 3 vóór stap 4. Wis je eerst, dan kan 'Zoek mijn' de telefoon blijven vergrendelen.</p>
+  <p class="note">De menunamen kunnen per iOS-versie iets verschillen. Zoek in Instellingen op 'wis' als je de optie niet ziet.</p>
+  <p class="source">Bronnen: <a href="https://www.iculture.nl/tips/iphone-verkoopklaar-maken/" rel="nofollow noopener">iCulture, iPhone verkoopklaar maken</a>, <a href="https://www.verkopen.nl/veelgestelde-vragen" rel="nofollow noopener">Verkopen.nl, veelgestelde vragen</a> (volgorde: back-up, uitloggen, wissen, simkaart eruit) en de checklist in de <a href="https://nomophone.com/nl/guides/marche/waar-telefoon-verkopen-vergelijking" rel="nofollow noopener">NomoPhone-gids</a> (eSIM, IMEI, foto's). Gecontroleerd op 28 oktober 2026.</p>
 </article>
 """)
 
@@ -252,16 +263,16 @@ def uitleg() -> None:
   <h1>Een inkoper kiezen</h1>
   <p class="lead">Het bod dat je online krijgt, is nog niet definitief. De inkoper controleert je toestel eerst.</p>
   <h2>Het bod kan lager uitvallen</h2>
-  <p>Wijkt de staat af van wat je hebt ingevuld, dan krijg je een nieuw, lager bod. Dat gebeurt geregeld: in een praktijkproef van de Consumentenbond (2017) verlaagden inkopers hun bod bij 7 van de 12 ingestuurde toestellen.</p>
+  <p>Wijkt de staat af van wat je hebt ingevuld, dan krijg je een nieuw, lager bod. Dat gebeurde in een praktijkproef van de Consumentenbond uit 2017 bij 7 van de 12 ingestuurde toestellen.</p>
   <h2>Let op wat er gebeurt als je nee zegt</h2>
-  <p>De meeste inkopers in onze vergelijking sturen je toestel dan gratis terug. Niet allemaal: bij KPN Trade-in betaal je de retourzending zelf. En sommige inkopers vermelden het niet. Check dat vóór je opstuurt.</p>
+  <p>Van de {len(DATA["inkopers"])} inkopers in onze vergelijking vermelden er {sum(1 for b in DATA["inkopers"] if b["retour"] == "ja")} dat ze je toestel dan gratis terugsturen. Bij KPN Trade-in betaal je de retourzending zelf, en bij de rest staat niet of het gratis is. Check dat vóór je opstuurt.</p>
   <h2>Zo voorkom je een tegenvaller</h2>
   <ul>
     <li>Vul de staat eerlijk in, ook kleine krassen.</li>
     <li>Maak foto's voordat je je telefoon inpakt.</li>
     <li>Vraag bij twee of drie inkopers een bod aan. Er is niet één inkoper die altijd het meest biedt.</li>
   </ul>
-  <p class="source">Bronnen: <a href="https://www.consumentenbond.nl/nieuws/2017/grote-verschillen-tussen-inkoopsites-voor-smartphones" rel="nofollow noopener">Consumentenbond (2017)</a>, <a href="https://www.consumentenbond.nl/smartphone/smartphone-verkopen-online" rel="nofollow noopener">Consumentenbond, telefoon verkopen</a>, en de voorwaarden van de inkopers (gecontroleerd op {GECONTROLEERD}).</p>
+  <p class="source">Bronnen: <a href="https://www.telecompaper.com/nieuws/grote-prijsverschillen-inkoopsites-gebruikte-smartphones--1194782" rel="nofollow noopener">Telecompaper over de praktijkproef van de Consumentenbond (2017)</a>, <a href="https://www.consumentenbond.nl/smartphone/smartphone-verkopen-online" rel="nofollow noopener">Consumentenbond, telefoon verkopen</a> (niet één inkoper biedt altijd het meest), en de bronnen per inkoper in <a href="/">de vergelijking</a>.</p>
 </article>
 """)
 
@@ -278,11 +289,11 @@ def uitleg() -> None:
   </ul>
   <h2>Je nummer meenemen</h2>
   <p>Dat heet nummerbehoud. Je regelt het bij je <strong>nieuwe</strong> aanbieder: bij het afsluiten geef je aan dat je je nummer wilt meenemen. De nieuwe en de oude aanbieder regelen de overstap dan onderling. Je oude abonnement wordt daarbij meestal ook opgezegd, dus je hoeft dat niet zelf te doen.</p>
-  <p class="note">Zeg je oude abonnement niet zelf op vóór de overstap rond is. Dan kan je nummer verloren gaan. Gebeurt de opzegging niet automatisch, zeg dan na de overstap zelf op om dubbele kosten te voorkomen.</p>
+  <p class="note">Volgens de ACM zegt je nieuwe aanbieder je oude abonnement voor je op. Vergeet hij dat, zeg dan zelf zo snel mogelijk op om dubbele kosten te voorkomen.</p>
   <h2>Zo stap je over</h2>
   <ol>
     <li>Bekijk hoeveel data je nodig hebt. <a href="/uitleg/hoeveel-data-heb-ik-nodig/">Zo zie je je verbruik</a>.</li>
-    <li>Kies een aanbieder. Aanbieders op hetzelfde netwerk hebben hetzelfde bereik. <a href="/sim-only/">Bekijk de aanbieders per netwerk</a>.</li>
+    <li>Kies een aanbieder. <a href="/sim-only/">Bekijk de aanbieders per netwerk</a>.</li>
     <li>Sluit het abonnement af en kies voor nummerbehoud. Houd je huidige nummer en je klantnummer bij de oude aanbieder bij de hand.</li>
     <li>Wacht op je nieuwe simkaart of eSIM, en activeer hem op de datum die je nieuwe aanbieder doorgeeft.</li>
   </ol>
@@ -328,12 +339,16 @@ def static_pages() -> None:
   <h1>Hoe wij vergelijken</h1>
   <h2>Wat we vergelijken</h2>
   <p>Per inkoper: hoe je wordt uitbetaald, hoe snel, of je je toestel gratis terugkrijgt als je een lager bod weigert, en of ze kapotte toestellen kopen.</p>
+  <h2>Welke inkopers we opnemen</h2>
+  <p>Inkopers en inruilprogramma's waar je in Nederland als particulier je telefoon kunt verkopen, en waarvan we de voorwaarden online konden vinden. De lijst is niet volledig. Mist er een? <a href="/contact/">Laat het weten</a>.</p>
+  <p>Twee inkopers, Leapp en Verkopen.nl, gebruiken hetzelfde inkoopplatform (Trade in). Hun voorwaarden zijn gelijk en hun biedingen waarschijnlijk ook.</p>
   <h2>Waar de gegevens vandaan komen</h2>
-  <p>Uit de eigen pagina's en voorwaarden van elke inkoper. Staat iets er niet, dan zetten we 'Niet vermeld' neer; we vullen niets zelf in. Bij elke inkoper linken we naar de bron. Laatste controle: {GECONTROLEERD}.</p>
+  <p>Uit de eigen pagina's en voorwaarden van de inkopers. Een deel van de officiële pagina's konden we niet zelf openen; die gegevens hebben we gecontroleerd via de <a href="https://nomophone.com/nl/guides/marche/waar-telefoon-verkopen-vergelijking" rel="nofollow noopener">vergelijkingsgids van NomoPhone</a>, die per feit de officiële pagina citeert. Dat staat bij die inkopers vermeld. Let op: NomoPhone is zelf ook inkoper.</p>
+  <p>Staat iets nergens vermeld, dan zetten we 'Niet vermeld' neer; we vullen niets zelf in. Bij elke inkoper linken we naar de bron. Laatste controle: {GECONTROLEERD}.</p>
   <h2>Volgorde</h2>
   <p>Inkopers staan op alfabet, gegroepeerd op geld of tegoed. Een inkoper staat niet hoger omdat wij er iets aan verdienen.</p>
   <h2>Hoe wij geld verdienen</h2>
-  <p>Bij sommige links ontvangen we een vergoeding als je via ons iets verkoopt of afsluit. Dat staat dan onder de knop. Jij betaalt daar niets extra voor.</p>
+  <p>Bij sommige links kunnen we een vergoeding ontvangen als je via ons iets verkoopt of afsluit. Bij welke links dat zo is, staat onder de knop. Jij betaalt daar niets extra voor.</p>
   <h2>Fout gezien?</h2>
   <p>Laat het weten via de <a href="/contact/">contactpagina</a>. We passen het zo snel mogelijk aan.</p>
 </article>
@@ -342,16 +357,21 @@ def static_pages() -> None:
     page("/privacy/", "Privacy | GadgetDeal", "Privacyverklaring van GadgetDeal.", """
 <article class="wrap prose">
   <h1>Privacy</h1>
+  <p class="source">Laatst bijgewerkt op 28 oktober 2026.</p>
   <h2>Wie we zijn</h2>
   <p>GadgetDeal (gadgetdeal.nl) wordt beheerd door Joris Krom. Contact: info@gadgetdeal.nl.</p>
-  <h2>Welke gegevens we verzamelen</h2>
-  <p>Op dit moment geen. We gebruiken geen tracking, geen analytics en geen advertentiecookies. Het lettertype wordt geladen via Google Fonts; daarbij ziet Google je IP-adres.</p>
+  <h2>Welke gegevens we verwerken</h2>
+  <ul>
+    <li><strong>Bezoek aan de site.</strong> We gebruiken geen tracking, geen analytics en geen advertentiecookies. De site wordt gehost door Vercel. Om de site te kunnen tonen, verwerkt Vercel technische gegevens zoals je IP-adres.</li>
+    <li><strong>Lettertype.</strong> Het lettertype wordt geladen via Google Fonts. Daarbij ziet Google je IP-adres.</li>
+    <li><strong>Als je ons mailt.</strong> We gebruiken je naam, mailadres en bericht alleen om je te antwoorden. We bewaren je mail niet langer dan nodig om je vraag af te handelen.</li>
+  </ul>
   <h2>Cookies</h2>
   <p>Deze site plaatst zelf geen cookies. Klik je via een link door naar een inkoper of aanbieder, dan kan die partij of het affiliatenetwerk daar cookies plaatsen om bij te houden dat je via GadgetDeal kwam. Daarvoor geldt hun eigen cookie- en privacybeleid.</p>
+  <h2>Je rechten</h2>
+  <p>Je kunt ons vragen welke gegevens we van je hebben, en vragen om die te corrigeren of te verwijderen. Mail daarvoor naar info@gadgetdeal.nl. Ben je het niet eens met hoe we met je gegevens omgaan, dan kun je een klacht indienen bij de <a href="https://autoriteitpersoonsgegevens.nl" rel="nofollow noopener">Autoriteit Persoonsgegevens</a>.</p>
   <h2>Links naar andere sites</h2>
   <p>Klik je door naar een inkoper of aanbieder, dan geldt hun privacybeleid.</p>
-  <h2>Contact</h2>
-  <p>Vragen over privacy? Mail naar info@gadgetdeal.nl.</p>
 </article>
 """)
 
@@ -373,10 +393,10 @@ def main() -> None:
     sim_only()
     uitleg()
     static_pages()
-    (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://gadgetdeal.nl/sitemap.xml\n", encoding="utf-8")
+    (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
     urls = sorted(p.parent.relative_to(OUT).as_posix() for p in OUT.rglob("index.html"))
     entries = "".join(
-        f"<url><loc>https://gadgetdeal.nl/{'' if u == '.' else u + '/'}</loc><lastmod>{DATA['gecontroleerd']}</lastmod></url>"
+        f"<url><loc>{SITE}/{'' if u == '.' else u + '/'}</loc><lastmod>{LAATST_BIJGEWERKT}</lastmod></url>"
         for u in urls
     )
     (OUT / "sitemap.xml").write_text(

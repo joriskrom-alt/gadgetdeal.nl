@@ -11,7 +11,9 @@
       "retour": "ja",
       "kapot": "onbekend",
       "notitie": "Duits bedrijf (DIS-CONNECT GmbH, Karlsruhe).",
-      "bron": "https://flipback.nl"
+      "bron": "https://flipback.nl",
+      "via": null,
+      "knop": "Bod opvragen"
     },
     {
       "naam": "GSMLoket",
@@ -23,7 +25,9 @@
       "retour": "onbekend",
       "kapot": "ja",
       "notitie": "Kapotte toestellen tegen een lagere waarde.",
-      "bron": "https://www.gsmloket.nl/nl/hoe-werkt-het/veelgestelde-vragen"
+      "bron": "https://www.gsmloket.nl/nl/hoe-werkt-het/veelgestelde-vragen",
+      "via": "NomoPhone-gids",
+      "knop": "Bod opvragen"
     },
     {
       "naam": "Leapp",
@@ -34,8 +38,10 @@
       "termijn": "1 tot 2 dagen na goedkeuring",
       "retour": "ja",
       "kapot": "ja",
-      "notitie": "Inkoop via Trade in, hetzelfde platform als Verkopen.nl.",
-      "bron": "https://verkopen.leapp.nl/en/frequently-asked-questions"
+      "notitie": "Inkoop via Trade in ('Powered by Trade in'), dezelfde partij als bij Verkopen.nl. Gratis retour volgens de FAQ, 'voorwaarden van toepassing'.",
+      "bron": "https://verkopen.leapp.nl/en/frequently-asked-questions",
+      "via": null,
+      "knop": "Bod opvragen"
     },
     {
       "naam": "NomoPhone",
@@ -46,8 +52,10 @@
       "termijn": "Binnen 24 werkuren na controle",
       "retour": "ja",
       "kapot": "ja",
-      "notitie": "Frans bedrijf (Reims).",
-      "bron": "https://nomophone.com/nl/cgr"
+      "notitie": "Werkplaats in Reims (Frankrijk). Is ook de uitgever van de vergelijkingsgids die wij als bron gebruiken.",
+      "bron": "https://nomophone.com/nl/cgr",
+      "via": "NomoPhone-gids",
+      "knop": "Bod opvragen"
     },
     {
       "naam": "Rebuy",
@@ -55,11 +63,13 @@
       "affiliate_url": null,
       "geld": true,
       "uitbetaling": "Bank, PayPal of waardebon (waardebon 10% meer waard)",
-      "termijn": "2 tot 7 werkdagen na akkoord",
+      "termijn": "Betaling bij akkoord; 2 tot 7 werkdagen op je rekening",
       "retour": "ja",
       "kapot": "nee",
       "notitie": "",
-      "bron": "https://www.rebuy.nl/legal/terms-and-conditions"
+      "bron": "https://www.rebuy.nl/legal/terms-and-conditions",
+      "via": "NomoPhone-gids",
+      "knop": "Bod opvragen"
     },
     {
       "naam": "refurbed",
@@ -71,7 +81,9 @@
       "retour": "ja",
       "kapot": "nee",
       "notitie": "Alleen werkende toestellen zonder sim- of netlock.",
-      "bron": "https://www.refurbed.nl/veelgestelde-vragen/"
+      "bron": "https://www.refurbed.nl/veelgestelde-vragen/",
+      "via": "NomoPhone-gids",
+      "knop": "Bod opvragen"
     },
     {
       "naam": "Swappie",
@@ -82,8 +94,10 @@
       "termijn": "1 tot 3 werkdagen na akkoord",
       "retour": "ja",
       "kapot": "ja",
-      "notitie": "",
-      "bron": "https://swappie.com/nl/verkoop/"
+      "notitie": "Beschadigde toestellen kunnen nog geld waard zijn, maar schade verlaagt het bod.",
+      "bron": "https://swappie.com/nl/verkoop/",
+      "via": "NomoPhone-gids",
+      "knop": "Bod opvragen"
     },
     {
       "naam": "Verkopen.nl",
@@ -94,8 +108,10 @@
       "termijn": "1 tot 2 dagen na goedkeuring",
       "retour": "ja",
       "kapot": "ja",
-      "notitie": "Inkoop via Trade in, hetzelfde platform als Leapp.",
-      "bron": "https://www.verkopen.nl/veelgestelde-vragen"
+      "notitie": "Trade in is de partij achter de inkoop, net als bij Leapp. Gratis retour volgens de FAQ, 'voorwaarden van toepassing'.",
+      "bron": "https://www.verkopen.nl/veelgestelde-vragen",
+      "via": null,
+      "knop": "Bod opvragen"
     },
     {
       "naam": "Verkoopmijntelefoon.nl",
@@ -107,7 +123,9 @@
       "retour": "onbekend",
       "kapot": "ja",
       "notitie": "Terugsturen kan; of dat gratis is, staat er niet bij. Geen toestellen met waterschade.",
-      "bron": "https://verkoopmijntelefoon.nl"
+      "bron": "https://verkoopmijntelefoon.nl",
+      "via": null,
+      "knop": "Bod opvragen"
     },
     {
       "naam": "Apple Trade In",
@@ -115,11 +133,13 @@
       "affiliate_url": null,
       "geld": false,
       "uitbetaling": "Korting, tegoed of Apple Gift Card",
-      "termijn": "3 tot 5 werkdagen na controle",
+      "termijn": "Controle duurt 3 tot 5 werkdagen; online inruilen meestal 2 tot 3 weken",
       "retour": "onbekend",
       "kapot": "nee",
       "notitie": "Kapotte toestellen niet via de website.",
-      "bron": "https://www.apple.com/nl/shop/trade-in"
+      "bron": "https://www.apple.com/nl/trade-in",
+      "via": null,
+      "knop": "Bod opvragen"
     },
     {
       "naam": "Coolblue",
@@ -128,10 +148,12 @@
       "geld": false,
       "uitbetaling": "Korting op een nieuw toestel of Coolblue-tegoed",
       "termijn": "Binnen 7 werkdagen",
-      "retour": "ja",
+      "retour": "onbekend",
       "kapot": "ja",
-      "notitie": "Inruilen kan alleen in een winkel; het toestel moet nog aangaan.",
-      "bron": "https://www.coolblue.nl/advies/alles-over-smartphone-upgrade.html"
+      "notitie": "Inruilen kan alleen in een winkel; daar krijg je het bod. Het toestel moet nog aangaan.",
+      "bron": "https://www.coolblue.nl/advies/alles-over-smartphone-upgrade.html",
+      "via": null,
+      "knop": "Bekijk inruilen"
     },
     {
       "naam": "MediaMarkt",
@@ -143,7 +165,9 @@
       "retour": "onbekend",
       "kapot": "onbekend",
       "notitie": "",
-      "bron": "https://inruilservice.mediamarkt.nl/faq/"
+      "bron": "https://inruilservice.mediamarkt.nl/faq/",
+      "via": "NomoPhone-gids",
+      "knop": "Bod opvragen"
     },
     {
       "naam": "KPN Trade-in",
@@ -151,11 +175,13 @@
       "affiliate_url": null,
       "geld": true,
       "uitbetaling": "Bankoverschrijving",
-      "termijn": "Binnen 5 werkdagen na goedkeuring",
+      "termijn": "Binnen 5 werkdagen na goedkeuring van je aanvraag",
       "retour": "nee",
       "kapot": "onbekend",
       "notitie": "Weiger je het nieuwe bod, dan betaal je zelf de retourzending.",
-      "bron": "https://assets.recommerce.com/clc/kpn/nl/RCS_Algemene_voorwaarden_trade_in_KPN.pdf"
+      "bron": "https://assets.recommerce.com/clc/kpn/nl/RCS_Algemene_voorwaarden_trade_in_KPN.pdf",
+      "via": "NomoPhone-gids",
+      "knop": "Bod opvragen"
     }
   ]
 }
