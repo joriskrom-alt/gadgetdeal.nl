@@ -146,17 +146,36 @@ def home() -> None:
 
 
 def sim_only() -> None:
-    providers = [
-        ("Odido", "https://www.odido.nl", "Eigen netwerk. Ook Ben en Simpel horen bij Odido."),
-        ("KPN", "https://www.kpn.com", "Eigen netwerk."),
-        ("Lebara", "https://www.lebara.nl", "Gebruikt het netwerk van KPN."),
-        ("Youfone", "https://www.youfone.nl", "Gebruikt het netwerk van KPN."),
-        ("Lycamobile", "https://www.lycamobile.nl", ""),
+    sim_gecontroleerd = nl_datum("2026-10-28")
+    netwerken = [
+        ("Op het netwerk van KPN", [
+            ("KPN", "https://www.kpn.com"),
+            ("Budget Thuis Mobiel", "https://www.budgetthuis.nl"),
+            ("Lebara", "https://www.lebara.nl"),
+            ("Simyo", "https://www.simyo.nl"),
+            ("Youfone", "https://www.youfone.nl"),
+        ]),
+        ("Op het netwerk van Vodafone", [
+            ("Vodafone", "https://www.vodafone.nl"),
+            ("50+ Mobiel", "https://www.50plusmobiel.nl"),
+            ("hollandsnieuwe", "https://www.hollandsnieuwe.nl"),
+        ]),
+        ("Op het netwerk van Odido", [
+            ("Odido", "https://www.odido.nl"),
+            ("Ben", "https://www.ben.nl"),
+            ("Simpel", "https://www.simpel.nl"),
+        ]),
+        ("Netwerk nog niet door ons gecontroleerd", [
+            ("Lycamobile", "https://www.lycamobile.nl"),
+        ]),
     ]
-    items = "".join(
-        f'<li><strong>{n}</strong>{escape(t)}<br><a href="{u}" rel="nofollow noopener" target="_blank">Bekijk sim only bij {n}</a></li>'
-        for n, u, t in providers
-    )
+    blokken = ""
+    for titel, lijst in netwerken:
+        items = "".join(
+            f'<li><strong>{escape(n)}</strong><a href="{u}" rel="nofollow noopener" target="_blank">Bekijk sim only bij {escape(n)}</a></li>'
+            for n, u in lijst
+        )
+        blokken += f"<h3>{titel}</h3><ul class=\"cards\">{items}</ul>"
     body = f"""
 <article class="wrap prose">
   <h1>Telefoon verkocht? Kies ook een abonnement</h1>
@@ -165,16 +184,16 @@ def sim_only() -> None:
   <ul>
     <li><strong>Data per maand.</strong> Kijk in je instellingen hoeveel je nu gemiddeld gebruikt, en kies niet veel meer.</li>
     <li><strong>Looptijd.</strong> Een maandelijks opzegbaar abonnement is soms iets duurder, maar je zit nergens aan vast.</li>
-    <li><strong>Netwerk.</strong> Veel kleinere aanbieders gebruiken het netwerk van een grote provider. Het bereik is dan gelijk.</li>
+    <li><strong>Netwerk.</strong> Er zijn in Nederland drie mobiele netwerken: KPN, Vodafone en Odido. De meeste andere aanbieders gebruiken een van die drie. Aanbieders op hetzelfde netwerk hebben hetzelfde bereik.</li>
     <li><strong>Overstappen.</strong> Je kunt je nummer meestal meenemen; dat regelt de nieuwe aanbieder.</li>
   </ul>
-  <h2>Aanbieders</h2>
-  <ul class="cards">{items}</ul>
-  <p class="source">Netwerkinformatie gecontroleerd op {GECONTROLEERD}. Prijzen en acties veranderen vaak; check ze bij de aanbieder.</p>
+  <h2>Aanbieders per netwerk</h2>
+  {blokken}
+  <p class="source">Netwerken gecontroleerd op {sim_gecontroleerd} via <a href="https://simvergelijk.nl/mobiele-providers/" rel="nofollow noopener">Simvergelijk</a> en <a href="https://www.providers.nl/mobiel/budget-mobiel/" rel="nofollow noopener">Providers.nl</a>. Prijzen en acties veranderen vaak; check ze bij de aanbieder. Mist er een aanbieder? <a href="/contact/">Laat het weten</a>.</p>
 </article>
 """
     page("/sim-only/", "Sim only kiezen na je nieuwe telefoon | GadgetDeal",
-         "Waar je op let bij een sim-only-abonnement, met de aanbieders op een rij.", body)
+         "Waar je op let bij een sim-only-abonnement, met alle aanbieders per netwerk op een rij.", body)
 
 
 def uitleg() -> None:
@@ -266,9 +285,8 @@ def static_pages() -> None:
     page("/privacy/", "Privacy | GadgetDeal", "Privacyverklaring van GadgetDeal.", """
 <article class="wrap prose">
   <h1>Privacy</h1>
-  <p class="todo">Vul je eigen naam en contactgegevens in vóór publicatie, en werk deze pagina bij zodra je analytics, advertenties of cookies toevoegt.</p>
   <h2>Wie we zijn</h2>
-  <p>GadgetDeal (gadgetdeal.nl) wordt beheerd door [naam]. Contact: info@gadgetdeal.nl.</p>
+  <p>GadgetDeal (gadgetdeal.nl) wordt beheerd door Joris Krom. Contact: info@gadgetdeal.nl.</p>
   <h2>Welke gegevens we verzamelen</h2>
   <p>Op dit moment geen. We gebruiken geen tracking, geen analytics en geen advertentiecookies. Het lettertype wordt geladen via Google Fonts; daarbij ziet Google je IP-adres.</p>
   <h2>Links naar andere sites</h2>
