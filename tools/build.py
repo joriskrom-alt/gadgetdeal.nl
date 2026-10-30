@@ -34,7 +34,7 @@ NAV = [
 ]
 
 
-def page(path: str, title: str, description: str, body: str, scripts: str = "") -> None:
+def page(path: str, title: str, description: str, body: str, scripts: str = "", noindex: bool = False) -> None:
     nav = "".join(
         f'<a href="{href}"{" aria-current=\"page\"" if href == path else ""}>{label}</a>'
         for href, label in NAV
@@ -46,6 +46,7 @@ def page(path: str, title: str, description: str, body: str, scripts: str = "") 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{escape(title)}</title>
 <meta name="description" content="{escape(description)}">
+{'<meta name="robots" content="noindex, follow">' if noindex else ''}
 <link rel="canonical" href="{SITE}{path}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="{escape(title)}">
@@ -209,9 +210,10 @@ def sim_only() -> None:
 
 def uitleg() -> None:
     page("/uitleg/", "Uitleg over telefoon verkopen | GadgetDeal",
-         "Praktische uitleg over je telefoon verkopen: resetten, geld of tegoed en een inkoper kiezen.", """
+         "Je oude telefoon verkopen zonder gedoe: zo wis je hem veilig, kies je tussen geld en tegoed en vind je een inkoper die eerlijk omgaat met een lager bod.", """
 <article class="wrap prose">
   <h1>Uitleg</h1>
+  <p class="lead">Alles wat je wilt weten voordat je je oude telefoon verkoopt: hoe je hem veilig wist, wanneer geld beter is dan tegoed en hoe je een inkoper kiest. En daarna: overstappen naar sim only en de databundel kiezen die bij je past.</p>
   <ul class="cards">
     <li><strong>Je iPhone klaarmaken voor verkoop</strong>Back-up, uitloggen en wissen, in de juiste volgorde.<br><a href="/uitleg/iphone-klaarmaken-voor-verkoop/">Lees de stappen</a></li>
     <li><strong>Geld of tegoed?</strong>Wanneer een cadeaubon slim is, en wanneer niet.<br><a href="/uitleg/geld-of-tegoed/">Lees meer</a></li>
@@ -373,7 +375,7 @@ def static_pages() -> None:
   <h2>Links naar andere sites</h2>
   <p>Klik je door naar een inkoper of aanbieder, dan geldt hun privacybeleid.</p>
 </article>
-""")
+""", noindex=True)
 
     page("/contact/", "Contact | GadgetDeal", "Neem contact op met GadgetDeal.", """
 <article class="wrap prose">
@@ -394,7 +396,7 @@ def main() -> None:
     uitleg()
     static_pages()
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
-    urls = sorted(p.parent.relative_to(OUT).as_posix() for p in OUT.rglob("index.html"))
+    urls = sorted(p.parent.relative_to(OUT).as_posix() for p in OUT.rglob("index.html") if "noindex" not in p.read_text(encoding="utf-8"))
     entries = "".join(
         f"<url><loc>{SITE}/{'' if u == '.' else u + '/'}</loc><lastmod>{LAATST_BIJGEWERKT}</lastmod></url>"
         for u in urls
