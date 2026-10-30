@@ -191,7 +191,8 @@ def sim_only() -> None:
     body = f"""
 <article class="wrap prose">
   <h1>Telefoon verkocht? Kies ook een abonnement</h1>
-  <p class="lead">Heb je je oude telefoon verkocht en een nieuwe los gekocht? Dan heb je alleen nog een simkaart met een abonnement nodig: sim only.</p>
+  <p class="lead"><strong>Je abonnement steeds duurder?</strong> Stap over naar sim only, met een databundel die echt bij jou past.</p>
+  <p>Heb je je oude telefoon verkocht en een nieuwe los gekocht? Dan heb je alleen nog een simkaart met een abonnement nodig: sim only.</p>
   <h2>Waar je op let</h2>
   <ul>
     <li><strong>Data per maand.</strong> Kijk in je instellingen hoeveel je nu gemiddeld gebruikt, en kies niet veel meer. <a href="/uitleg/hoeveel-data-heb-ik-nodig/">Zo zie je je verbruik</a>.</li>
@@ -205,15 +206,15 @@ def sim_only() -> None:
 </article>
 """
     page("/sim-only/", "Sim only kiezen na je nieuwe telefoon | GadgetDeal",
-         "Waar je op let bij een sim-only-abonnement, met de aanbieders per netwerk op een rij.", body)
+         "Je abonnement steeds duurder? Stap over naar sim only, met een databundel die echt bij jou past. De aanbieders per netwerk op een rij.", body)
 
 
 def uitleg() -> None:
     page("/uitleg/", "Uitleg over telefoon verkopen | GadgetDeal",
-         "Je oude telefoon verkopen zonder gedoe: zo wis je hem veilig, kies je tussen geld en tegoed en vind je een inkoper die eerlijk omgaat met een lager bod.", """
+         "Hoe en waar verkoop ik mijn telefoon? Zo wis je hem veilig, kies je tussen geld en tegoed en vind je een inkoper die eerlijk omgaat met een lager bod.", """
 <article class="wrap prose">
   <h1>Uitleg</h1>
-  <p class="lead">Alles wat je wilt weten voordat je je oude telefoon verkoopt: hoe je hem veilig wist, wanneer geld beter is dan tegoed en hoe je een inkoper kiest. En daarna: overstappen naar sim only en de databundel kiezen die bij je past.</p>
+  <p class="lead"><strong>Hoe en waar verkoop ik mijn telefoon nou?</strong> Alles wat je wilt weten voordat je je oude telefoon verkoopt: hoe je hem veilig wist, wanneer geld beter is dan tegoed en hoe je een inkoper kiest. En daarna: overstappen naar sim only en de databundel kiezen die bij je past.</p>
   <ul class="cards">
     <li><strong>Je iPhone klaarmaken voor verkoop</strong>Back-up, uitloggen en wissen, in de juiste volgorde.<br><a href="/uitleg/iphone-klaarmaken-voor-verkoop/">Lees de stappen</a></li>
     <li><strong>Geld of tegoed?</strong>Wanneer een cadeaubon slim is, en wanneer niet.<br><a href="/uitleg/geld-of-tegoed/">Lees meer</a></li>
