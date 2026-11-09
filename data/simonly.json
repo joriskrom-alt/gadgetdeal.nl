@@ -1,0 +1,65 @@
+{
+  "gecontroleerd": "2026-11-09",
+  "aanbieders": {
+    "KPN": {
+      "beperkt": "€18,50", "data": "10 GB", "looptijd": "2 jaar", "actie": null,
+      "onbeperkt": "€28",
+      "extra": "Tijdelijk: Black Friday-korting op Unlimited 400 (€2) en Superunlimited (€3)."
+    },
+    "Budget Thuis Mobiel": {
+      "beperkt": "€7", "data": "5 GB", "looptijd": "2 jaar", "actie": "Eerste 5 maanden €0,50 per maand",
+      "onbeperkt": "€20",
+      "extra": "Onbeperkt bellen: €1,50 per maand extra na de actieperiode."
+    },
+    "Lebara": {
+      "beperkt": "€4", "data": "1 GB", "looptijd": "2 jaar", "actie": "Eerste 6 maanden 50% korting",
+      "onbeperkt": null,
+      "extra": "Onbeperkt bellen en sneller dan 75 Mbit/s kosten extra. Internationaal bellen €5 per maand extra."
+    },
+    "Simyo": {
+      "beperkt": "€7,50", "data": "6 GB", "looptijd": "2 jaar", "actie": "20, 30 of 40 GB de eerste 12 maanden voor €3,50 per maand",
+      "onbeperkt": null,
+      "extra": "Onbeperkt bellen €1 per maand extra; een dataplafond ook €1 per maand."
+    },
+    "Youfone": {
+      "beperkt": "€5", "data": "1 GB", "looptijd": "2 jaar", "actie": "10, 30 of 40 GB de eerste 9 maanden voor €1 per maand",
+      "onbeperkt": null,
+      "extra": "Onbeperkt bellen €1 per maand extra; dataplafond en sneller 5G €0,50 per maand."
+    },
+    "Vodafone": {
+      "beperkt": "€15", "data": "3 GB", "looptijd": "2 jaar", "actie": null,
+      "onbeperkt": "€25",
+      "extra": "De onbeperkte prijs is inclusief tijdelijke Black Friday-korting. Onder de 28 jaar tot €10 extra korting. Onbeperkt bellen €2,50 per maand extra."
+    },
+    "50+ Mobiel": {
+      "beperkt": "€6,50", "data": "5 GB", "looptijd": "2 jaar", "actie": "Eerste 12 maanden €2,50 per maand, ook voor 75 GB",
+      "onbeperkt": null,
+      "extra": "Altijd onbeperkt bellen. Kostenplafond de eerste 12 maanden gratis, daarna €0,50 per maand."
+    },
+    "hollandsnieuwe": {
+      "beperkt": "€7", "data": "5 GB", "looptijd": "2 jaar", "actie": "Eerste 12 maanden €4,50 per maand, ook voor 40 GB",
+      "onbeperkt": null,
+      "extra": "Onbeperkt bellen en kostenplafond nu gratis."
+    },
+    "Odido": {
+      "beperkt": "€14", "data": "2 GB", "looptijd": "2 jaar", "actie": null,
+      "onbeperkt": "€25",
+      "extra": "Tijdelijk: Black Friday-korting van €2,50 op Unlimited Basis en Unlimited Snelst."
+    },
+    "Ben": {
+      "beperkt": "€8", "data": "7,5 GB", "looptijd": "2 jaar", "actie": "Eerste 12 maanden 50% korting",
+      "onbeperkt": null,
+      "extra": "Onbeperkt bellen €2 per maand extra; sneller 5G €1 per maand extra."
+    },
+    "Simpel": {
+      "beperkt": "€6,50", "data": "5 GB", "looptijd": "2 jaar", "actie": "Eerste 12 maanden €2,50 per maand, ook voor 60 GB",
+      "onbeperkt": null,
+      "extra": "Onbeperkt bellen €1,50 per maand extra."
+    },
+    "Lycamobile": {
+      "beperkt": "€4", "data": "1 GB", "looptijd": "2 jaar", "actie": "Tijdelijke korting in het eerste jaar; hoeveel verschilt per bundel",
+      "onbeperkt": null,
+      "extra": null
+    }
+  }
+}

@@ -167,6 +167,7 @@ def sim_only() -> None:
             ("Lebara", "https://www.lebara.nl"),
             ("Simyo", "https://www.simyo.nl"),
             ("Youfone", "https://www.youfone.nl"),
+            ("Lycamobile", "https://www.lycamobile.nl"),
         ]),
         ("Op het netwerk van Vodafone", [
             ("Vodafone", "https://www.vodafone.nl"),
@@ -178,16 +179,28 @@ def sim_only() -> None:
             ("Ben", "https://www.ben.nl"),
             ("Simpel", "https://www.simpel.nl"),
         ]),
-        ("Netwerk nog niet door ons gecontroleerd", [
-            ("Lycamobile", "https://www.lycamobile.nl"),
-        ]),
     ]
+    prijzen = json.loads((ROOT / "data" / "simonly.json").read_text(encoding="utf-8"))
+    prijs_datum = nl_datum(prijzen["gecontroleerd"])
+
+    def kaart(n: str, u: str) -> str:
+        p = prijzen["aanbieders"].get(n)
+        info = ""
+        if p:
+            info += f'<span class="price">Vanaf {escape(p["beperkt"])} per maand</span>'
+            info += f'<span class="price-sub">{escape(p["data"])}, {escape(p["looptijd"])}</span>'
+            if p.get("actie"):
+                info += f'<span class="deal">Actie: {escape(p["actie"])}</span>'
+            info += (f'<span class="price-sub">Onbeperkt vanaf {escape(p["onbeperkt"])} per maand</span>'
+                     if p.get("onbeperkt") else '<span class="price-sub">Geen onbeperkte bundel</span>')
+            if p.get("extra"):
+                info += f'<small>{escape(p["extra"])}</small>'
+        return (f'<li><strong>{escape(n)}</strong>{info}'
+                f'<a href="{u}" rel="nofollow noopener" target="_blank">Bekijk sim only bij {escape(n)}</a></li>')
+
     blokken = ""
     for titel, lijst in netwerken:
-        items = "".join(
-            f'<li><strong>{escape(n)}</strong><a href="{u}" rel="nofollow noopener" target="_blank">Bekijk sim only bij {escape(n)}</a></li>'
-            for n, u in lijst
-        )
+        items = "".join(kaart(n, u) for n, u in lijst)
         blokken += f"<h3>{titel}</h3><ul class=\"cards\">{items}</ul>"
     body = f"""
 <article class="wrap prose">
@@ -203,7 +216,7 @@ def sim_only() -> None:
   </ul>
   <h2>Aanbieders per netwerk</h2>
   {blokken}
-  <p class="source">Netwerken gecontroleerd op {sim_gecontroleerd} via <a href="https://simvergelijk.nl/mobiele-providers/" rel="nofollow noopener">Simvergelijk</a> en <a href="https://www.providers.nl/mobiel/budget-mobiel/" rel="nofollow noopener">Providers.nl</a>. Prijzen en acties veranderen vaak; check ze bij de aanbieder. Mist er een aanbieder? <a href="/contact/">Laat het weten</a>.</p>
+  <p class="source">Prijzen gecontroleerd op {prijs_datum} op de sites van de aanbieders. Prijzen zijn per maand en zonder combinatievoordeel. Netwerken gecontroleerd op {sim_gecontroleerd} via <a href="https://simvergelijk.nl/mobiele-providers/" rel="nofollow noopener">Simvergelijk</a> en <a href="https://www.providers.nl/mobiel/budget-mobiel/" rel="nofollow noopener">Providers.nl</a>. Prijzen en acties veranderen vaak; check ze bij de aanbieder. Mist er een aanbieder? <a href="/contact/">Laat het weten</a>.</p>
 </article>
 """
     page("/sim-only/", "Sim only kiezen na je nieuwe telefoon | GadgetDeal",

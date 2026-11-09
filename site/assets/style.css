@@ -134,5 +134,9 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
 .cards li a { display: inline-block; margin-top: 6px; }
+.cards li .price { display: block; font-weight: 700; margin-top: 8px; }
+.cards li .price-sub { display: block; color: var(--muted); font-size: 0.95rem; }
+.cards li .deal { display: inline-block; background: #fff6d6; border-radius: var(--radius-s); padding: 2px 8px; margin: 6px 0 2px; font-size: 0.92rem; }
+.cards li small { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 6px; }
 .prose ul.cards { padding-left: 0; }
 .buyers td small.source { display: block; margin-top: 4px; }
