@@ -211,11 +211,14 @@ def sim_only() -> None:
 
     alle = [(n, t.replace("Op het netwerk van ", "")) for t, l in netwerken for n, _ in l]
     met = [(n, prijzen["aanbieders"][n]) for n, _ in alle if n in prijzen["aanbieders"]]
-    laagst = min(met, key=lambda x: eur(x[1]["beperkt"]))
+    laagste_prijs = min(eur(p["beperkt"]) for _, p in met)
+    laagst_alle = [x for x in met if eur(x[1]["beperkt"]) == laagste_prijs]
+    laagst = laagst_alle[0]
+    laagst_namen = " en ".join(f'{escape(n)} ({escape(p["data"])})' for n, p in laagst_alle)
     onbep = min((x for x in met if x[1].get("onbeperkt")), key=lambda x: eur(x[1]["onbeperkt"]))
     n_actie = sum(1 for _, p in met if p.get("actie"))
     uitgelicht = f"""<div class="so-highlights">
-  <div><span>Laagste vanaf-prijs</span><strong>{escape(laagst[1]["beperkt"])} <small>/mnd</small></strong><em>{escape(laagst[0])}, {escape(laagst[1]["data"])}</em></div>
+  <div><span>Laagste vanaf-prijs</span><strong>{escape(laagst[1]["beperkt"])} <small>/mnd</small></strong><em>{laagst_namen}</em></div>
   <div><span>Goedkoopste onbeperkt</span><strong>{escape(onbep[1]["onbeperkt"])} <small>/mnd</small></strong><em>{escape(onbep[0])}</em></div>
   <div><span>Aanbieders met een actie</span><strong>{n_actie} <small>van {len(met)}</small></strong><em>Vaak alleen de eerste maanden</em></div>
 </div>"""
