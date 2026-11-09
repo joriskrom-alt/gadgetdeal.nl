@@ -76,6 +76,7 @@ def page(path: str, title: str, description: str, body: str, scripts: str = "", 
       <a href="/hoe-wij-vergelijken/">Hoe wij vergelijken</a>
       <a href="/privacy/">Privacy</a>
       <a href="/contact/">Contact</a>
+      <a href="/contact/#bedrijfsgegevens">Bedrijfsgegevens</a>
     </nav>
   </div>
 </footer>
@@ -378,11 +379,13 @@ def static_pages() -> None:
 </article>
 """, noindex=True)
 
-    page("/contact/", "Contact | GadgetDeal", "Neem contact op met GadgetDeal.", """
+    page("/contact/", "Contact | GadgetDeal", "Vraag over GadgetDeal, een inkoper die ontbreekt of een fout in de vergelijking? Mail ons via info@gadgetdeal.nl.", """
 <article class="wrap prose">
   <h1>Contact</h1>
   <p class="lead">Een fout gezien, een inkoper die ontbreekt of een vraag over samenwerking? Mail naar <a href="mailto:info@gadgetdeal.nl">info@gadgetdeal.nl</a>.</p>
   <p>Let op: wij kopen zelf geen telefoons in. Voor vragen over een verkoop neem je contact op met de inkoper.</p>
+  <h2 id="bedrijfsgegevens">Bedrijfsgegevens</h2>
+  <p>Gadgetdeal<br>Ceramplein 83<br>1095 DE Amsterdam<br>KvK-nummer: 42216076<br>E-mail: <a href="mailto:info@gadgetdeal.nl">info@gadgetdeal.nl</a></p>
 </article>
 """)
 
