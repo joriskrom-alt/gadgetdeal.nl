@@ -183,44 +183,78 @@ def sim_only() -> None:
     prijzen = json.loads((ROOT / "data" / "simonly.json").read_text(encoding="utf-8"))
     prijs_datum = nl_datum(prijzen["gecontroleerd"])
 
-    def kaart(n: str, u: str) -> str:
+    def eur(t):
+        return float(t.replace("€", "").replace(",", "."))
+
+    kleuren = {"KPN": "net-a", "Vodafone": "net-b", "Odido": "net-c"}
+
+    def kaart(n: str, u: str, net: str) -> str:
         p = prijzen["aanbieders"].get(n)
-        info = ""
-        if p:
-            info += f'<span class="price">Vanaf {escape(p["beperkt"])} per maand</span>'
-            info += f'<span class="price-sub">{escape(p["data"])}, {escape(p["looptijd"])}</span>'
-            if p.get("actie"):
-                info += f'<span class="deal">Actie: {escape(p["actie"])}</span>'
-            info += (f'<span class="price-sub">Onbeperkt vanaf {escape(p["onbeperkt"])} per maand</span>'
-                     if p.get("onbeperkt") else '<span class="price-sub">Geen onbeperkte bundel</span>')
-            if p.get("extra"):
-                info += f'<small>{escape(p["extra"])}</small>'
-        return (f'<li><strong>{escape(n)}</strong>{info}'
-                f'<a href="{u}" rel="nofollow noopener" target="_blank">Bekijk sim only bij {escape(n)}</a></li>')
+        if not p:
+            return ""
+        bedrag = p["beperkt"].replace("€", "")
+        badge = f'<span class="so-badge">Actie</span>' if p.get("actie") else ""
+        deal = f'<p class="so-deal">{escape(p["actie"])}</p>' if p.get("actie") else ""
+        onb = (f'<span class="so-chip yes">Onbeperkt vanaf {escape(p["onbeperkt"])}</span>'
+               if p.get("onbeperkt") else '<span class="so-chip">Geen onbeperkt</span>')
+        extra = f'<p class="so-extra">{escape(p["extra"])}</p>' if p.get("extra") else ""
+        return f"""<li class="so-card {kleuren[net]}" data-actie="{'ja' if p.get('actie') else 'nee'}" data-onbeperkt="{'ja' if p.get('onbeperkt') else 'nee'}">
+  <div class="so-top"><strong>{escape(n)}</strong>{badge}</div>
+  <p class="so-net">Netwerk {net}</p>
+  <p class="so-price"><span class="so-from">vanaf</span> <span class="so-eur">€</span><span class="so-amount">{escape(bedrag)}</span><span class="so-pm">/mnd</span></p>
+  <p class="so-spec">{escape(p["data"])} · {escape(p["looptijd"])}</p>
+  {deal}
+  <div class="so-chips">{onb}</div>
+  {extra}
+  <a class="go so-go" href="{u}" rel="nofollow noopener" target="_blank">Bekijk bij {escape(n)}</a>
+</li>"""
+
+    alle = [(n, t.replace("Op het netwerk van ", "")) for t, l in netwerken for n, _ in l]
+    met = [(n, prijzen["aanbieders"][n]) for n, _ in alle if n in prijzen["aanbieders"]]
+    laagst = min(met, key=lambda x: eur(x[1]["beperkt"]))
+    onbep = min((x for x in met if x[1].get("onbeperkt")), key=lambda x: eur(x[1]["onbeperkt"]))
+    n_actie = sum(1 for _, p in met if p.get("actie"))
+    uitgelicht = f"""<div class="so-highlights">
+  <div><span>Laagste vanaf-prijs</span><strong>{escape(laagst[1]["beperkt"])} <small>/mnd</small></strong><em>{escape(laagst[0])}, {escape(laagst[1]["data"])}</em></div>
+  <div><span>Goedkoopste onbeperkt</span><strong>{escape(onbep[1]["onbeperkt"])} <small>/mnd</small></strong><em>{escape(onbep[0])}</em></div>
+  <div><span>Aanbieders met een actie</span><strong>{n_actie} <small>van {len(met)}</small></strong><em>Vaak alleen de eerste maanden</em></div>
+</div>"""
 
     blokken = ""
     for titel, lijst in netwerken:
-        items = "".join(kaart(n, u) for n, u in lijst)
-        blokken += f"<h3>{titel}</h3><ul class=\"cards\">{items}</ul>"
+        net = titel.replace("Op het netwerk van ", "")
+        items = "".join(kaart(n, u, net) for n, u in lijst)
+        blokken += f'<h3 class="so-group {kleuren[net]}">{titel}</h3><ul class="so-grid">{items}</ul>'
     body = f"""
+<div class="wrap">
+  <header class="so-hero">
+    <h1>Telefoon verkocht? Kies ook een abonnement</h1>
+    <p class="lead"><strong>Je abonnement steeds duurder?</strong> Stap over naar sim only, met een databundel die echt bij jou past.</p>
+  </header>
+  {uitgelicht}
+  <div class="so-filter" role="group" aria-label="Filter aanbieders">
+    <button type="button" data-filter="alle" aria-pressed="true">Alle aanbieders</button>
+    <button type="button" data-filter="actie" aria-pressed="false">Met actie</button>
+    <button type="button" data-filter="onbeperkt" aria-pressed="false">Met onbeperkt</button>
+  </div>
+  {blokken}
+  <p class="source">Prijzen gecontroleerd op {prijs_datum} op de sites van de aanbieders. Prijzen zijn per maand en zonder combinatievoordeel. Netwerken gecontroleerd op {sim_gecontroleerd} via <a href="https://simvergelijk.nl/mobiele-providers/" rel="nofollow noopener">Simvergelijk</a> en <a href="https://www.providers.nl/mobiel/budget-mobiel/" rel="nofollow noopener">Providers.nl</a>. Prijzen en acties veranderen vaak; check ze bij de aanbieder. Mist er een aanbieder? <a href="/contact/">Laat het weten</a>.</p>
+</div>
 <article class="wrap prose">
-  <h1>Telefoon verkocht? Kies ook een abonnement</h1>
-  <p class="lead"><strong>Je abonnement steeds duurder?</strong> Stap over naar sim only, met een databundel die echt bij jou past.</p>
-  <p>Heb je je oude telefoon verkocht en een nieuwe los gekocht? Dan heb je alleen nog een simkaart met een abonnement nodig: sim only.</p>
   <h2>Waar je op let</h2>
+  <p>Heb je je oude telefoon verkocht en een nieuwe los gekocht? Dan heb je alleen nog een simkaart met een abonnement nodig: sim only.</p>
   <ul>
     <li><strong>Data per maand.</strong> Kijk in je instellingen hoeveel je nu gemiddeld gebruikt, en kies niet veel meer. <a href="/uitleg/hoeveel-data-heb-ik-nodig/">Zo zie je je verbruik</a>.</li>
     <li><strong>Looptijd.</strong> Je kiest meestal tussen een vaste looptijd en maandelijks opzegbaar. Vergelijk de prijs van beide.</li>
-    <li><strong>Netwerk.</strong> Er zijn in Nederland drie landelijke mobiele netwerken: KPN, Vodafone en Odido. Andere aanbieders gebruiken een van die drie. Hieronder zie je welke.</li>
+    <li><strong>Netwerk.</strong> Er zijn in Nederland drie landelijke mobiele netwerken: KPN, Vodafone en Odido. Andere aanbieders gebruiken een van die drie.</li>
+    <li><strong>Acties.</strong> Een lage prijs geldt vaak alleen de eerste maanden. Kijk ook wat je daarna betaalt.</li>
     <li><strong>Overstappen.</strong> Je kunt je nummer meestal meenemen; dat regelt de nieuwe aanbieder. <a href="/uitleg/overstappen-naar-sim-only/">Zo werkt overstappen</a>.</li>
   </ul>
-  <h2>Aanbieders per netwerk</h2>
-  {blokken}
-  <p class="source">Prijzen gecontroleerd op {prijs_datum} op de sites van de aanbieders. Prijzen zijn per maand en zonder combinatievoordeel. Netwerken gecontroleerd op {sim_gecontroleerd} via <a href="https://simvergelijk.nl/mobiele-providers/" rel="nofollow noopener">Simvergelijk</a> en <a href="https://www.providers.nl/mobiel/budget-mobiel/" rel="nofollow noopener">Providers.nl</a>. Prijzen en acties veranderen vaak; check ze bij de aanbieder. Mist er een aanbieder? <a href="/contact/">Laat het weten</a>.</p>
 </article>
 """
     page("/sim-only/", "Sim only kiezen na je nieuwe telefoon | GadgetDeal",
-         "Je abonnement steeds duurder? Stap over naar sim only, met een databundel die echt bij jou past. De aanbieders per netwerk op een rij.", body)
+         "Je abonnement steeds duurder? Stap over naar sim only, met een databundel die echt bij jou past. De aanbieders per netwerk op een rij.", body,
+         '<script src="/assets/simonly.js" defer></script>')
 
 
 def uitleg() -> None:
