@@ -24,7 +24,7 @@ def nl_datum(iso: str) -> str:
 
 GECONTROLEERD = nl_datum(DATA["gecontroleerd"])
 SITE = "https://www.gadgetdeal.nl"
-LAATST_BIJGEWERKT = "2026-10-28"
+LAATST_BIJGEWERKT = "2026-11-09"
 
 NAV = [
     ("/", "Telefoon verkopen"),
