@@ -269,6 +269,7 @@ def uitleg() -> None:
   <ul class="cards">
     <li><strong>Je iPhone klaarmaken voor verkoop</strong>Back-up, uitloggen en wissen, in de juiste volgorde.<br><a href="/uitleg/iphone-klaarmaken-voor-verkoop/">Lees de stappen</a></li>
     <li><strong>Geld of tegoed?</strong>Wanneer een cadeaubon slim is, en wanneer niet.<br><a href="/uitleg/geld-of-tegoed/">Lees meer</a></li>
+    <li><strong>Kapotte telefoon verkopen</strong>Welke inkopers hem nog kopen, en hoe je hem op afstand wist.<br><a href="/uitleg/kapotte-telefoon-verkopen/">Lees meer</a></li>
     <li><strong>Een inkoper kiezen</strong>Wat er gebeurt als ze na controle minder bieden.<br><a href="/uitleg/inkoper-kiezen/">Lees meer</a></li>
     <li><strong>Overstappen naar sim only</strong>Je nummer meenemen en wanneer je kosteloos opzegt.<br><a href="/uitleg/overstappen-naar-sim-only/">Lees meer</a></li>
     <li><strong>Hoeveel data heb ik nodig?</strong>Zo zie je je eigen verbruik en kies je de juiste bundel.<br><a href="/uitleg/hoeveel-data-heb-ik-nodig/">Lees meer</a></li>
@@ -352,6 +353,49 @@ def uitleg() -> None:
     <li>Wacht op je nieuwe simkaart of eSIM, en activeer hem op de datum die je nieuwe aanbieder doorgeeft.</li>
   </ol>
   <p class="source">Bronnen: <a href="https://www.acm.nl/nl/node/24843" rel="nofollow noopener">ACM, opzeggen of overstappen van uw telecomabonnement</a> en <a href="https://www.mobiel.nl/vragen-en-contact/providers/wat-is-belangrijk-om-te-weten-over-mijn-abonnement/opzeggen" rel="nofollow noopener">Mobiel.nl, opzeggen</a>. Gecontroleerd op 28 oktober 2026. De precieze voorwaarden verschillen per aanbieder.</p>
+</article>
+""")
+
+    kapot_ja = sorted((b for b in DATA["inkopers"] if b["kapot"] == "ja"), key=lambda b: b["naam"].lower())
+    kapot_nee = ", ".join(b["naam"] for b in sorted(DATA["inkopers"], key=lambda b: b["naam"].lower()) if b["kapot"] == "nee")
+    kapot_onb = ", ".join(b["naam"] for b in sorted(DATA["inkopers"], key=lambda b: b["naam"].lower()) if b["kapot"] == "onbekend")
+    kapot_items = "".join(
+        f'<li><strong>{escape(b["naam"])}</strong>: betaalt in {"geld" if b["geld"] else "tegoed of een cadeaubon"}.'
+        f'{(" " + escape(b["kapot_notitie"])) if b.get("kapot_notitie") else ""}</li>'
+        for b in kapot_ja
+    )
+    page("/uitleg/kapotte-telefoon-verkopen/", "Kapotte telefoon verkopen: wie koopt hem nog? | GadgetDeal",
+         "Gebarsten scherm, slechte accu of gaat hij niet meer aan? Deze inkopers kopen kapotte telefoons, en hier let je op voordat je hem opstuurt.", f"""
+<article class="wrap prose">
+  <h1>Kapotte telefoon verkopen</h1>
+  <p class="lead">Ook een telefoon met een gebarsten scherm of een slechte accu kun je vaak nog verkopen. Niet elke inkoper neemt hem aan, en de voorwaarden verschillen per inkoper.</p>
+
+  <h2>Deze inkopers kopen kapotte telefoons</h2>
+  <ul>{kapot_items}</ul>
+  <p><strong>Geen kapotte toestellen:</strong> {escape(kapot_nee)}.</p>
+  <p><strong>Staat niet in de voorwaarden:</strong> {escape(kapot_onb)}.</p>
+  <p><a class="go" href="/">Bekijk de vergelijking</a> en vink 'Mijn telefoon is kapot' aan.</p>
+
+  <h2>Waar je op let</h2>
+  <ul>
+    <li><strong>Reken op een laag bod.</strong> Een kapot toestel levert vaak weinig op. Toen wij bij MediaMarkt een bod vroegen voor een kapotte iPhone 13, was dat €15. Vraag daarom bij een paar inkopers een bod.</li>
+    <li><strong>Vul de schade eerlijk in.</strong> De inkoper controleert je toestel. Wijkt het af van wat je hebt ingevuld, dan krijg je een lager bod. Kijk vooraf wat er gebeurt als je dat weigert: <a href="/uitleg/inkoper-kiezen/">zo kies je een inkoper</a>.</li>
+    <li><strong>Waterschade en niet-originele onderdelen.</strong> Sommige inkopers nemen die niet aan. GSMLoket noemt total loss, vochtschade en niet-originele onderdelen; Verkoopmijntelefoon.nl neemt geen toestellen met waterschade.</li>
+    <li><strong>Haal hem uit je account.</strong> Een toestel dat nog aan jouw account vastzit, is voor een inkoper weinig waard. KPN Trade-in neemt geblokkeerde toestellen niet aan.</li>
+  </ul>
+
+  <h2>Je gegevens wissen als het scherm het niet meer doet</h2>
+  <p>Kun je je telefoon niet meer bedienen, dan kun je hem soms op afstand wissen.</p>
+  <ul>
+    <li><strong>iPhone:</strong> log in op iCloud.com of open de Zoek mijn-app op een ander apparaat, kies je iPhone en wis hem. Kies daarna bij je iPhone 'Verwijder uit account', zodat het activeringsslot eraf gaat.</li>
+    <li><strong>Android:</strong> ga naar android.com/find, log in met je Google-account, kies je telefoon en kies 'Apparaat wissen'. Dat werkt alleen als de telefoon aan staat, verbinding heeft en op je Google-account is ingelogd.</li>
+  </ul>
+  <p>Lukt beide niet, dan staan je gegevens nog op het toestel. Weeg dan zelf af of je hem wilt opsturen.</p>
+
+  <h2>Wil niemand hem hebben?</h2>
+  <p>Gooi hem niet bij het restafval. Lever hem in bij een inzamelpunt voor elektrische apparaten, zoals de milieustraat van je gemeente.</p>
+
+  <p class="source">Inkopers en voorwaarden gecontroleerd op {GECONTROLEERD} op de sites van de inkopers. Op afstand wissen: <a href="https://www.iculture.nl/tips/remote-wipe-iphone/" rel="nofollow noopener">iCulture</a>, <a href="https://www.iculture.nl/gids/activeringsslot/" rel="nofollow noopener">iCulture over het activeringsslot</a> en <a href="https://www.androidplanet.nl/tips/android-vinden/" rel="nofollow noopener">Android Planet</a>.</p>
 </article>
 """)
 

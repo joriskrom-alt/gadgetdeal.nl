@@ -27,7 +27,8 @@
       "notitie": "Kapotte toestellen tegen een lagere waarde. Niet bij total loss, vochtschade of niet-originele onderdelen.",
       "bron": "https://www.gsmloket.nl/nl/hoe-werkt-het/veelgestelde-vragen",
       "via": null,
-      "knop": "Bod opvragen"
+      "knop": "Bod opvragen",
+      "kapot_notitie": "Tegen een lagere waarde. Niet bij total loss, vochtschade of niet-originele onderdelen."
     },
     {
       "naam": "Leapp",
@@ -97,7 +98,8 @@
       "notitie": "Kapotte toestellen alleen als het moederbord heel is, en ook dan is de kans klein.",
       "bron": "https://swappie.com/nl/verkoop/",
       "via": null,
-      "knop": "Bod opvragen"
+      "knop": "Bod opvragen",
+      "kapot_notitie": "Alleen als het moederbord heel is, en ook dan is de kans klein."
     },
     {
       "naam": "Verkopen.nl",
@@ -125,7 +127,8 @@
       "notitie": "Terugsturen kan; of dat gratis is, staat er niet bij. Geen toestellen met waterschade.",
       "bron": "https://verkoopmijntelefoon.nl",
       "via": null,
-      "knop": "Bod opvragen"
+      "knop": "Bod opvragen",
+      "kapot_notitie": "Geen toestellen met waterschade."
     },
     {
       "naam": "Apple Trade In",
@@ -153,7 +156,8 @@
       "notitie": "Inruilen kan alleen in een winkel; daar krijg je het bod. Het toestel moet nog aangaan.",
       "bron": "https://www.coolblue.nl/advies/alles-over-smartphone-upgrade.html",
       "via": null,
-      "knop": "Bekijk inruilen"
+      "knop": "Bekijk inruilen",
+      "kapot_notitie": "Alleen in de winkel, en het toestel moet nog aangaan."
     },
     {
       "naam": "MediaMarkt",
@@ -167,7 +171,8 @@
       "notitie": "Kapotte toestellen leveren weinig op (in onze test €15 voor een kapotte iPhone 13). Of terugsturen bij een lager bod gratis is, staat er niet bij.",
       "bron": "https://inruilservice.mediamarkt.nl/faq/",
       "via": null,
-      "knop": "Bod opvragen"
+      "knop": "Bod opvragen",
+      "kapot_notitie": "Levert weinig op: in onze test €15 voor een kapotte iPhone 13."
     },
     {
       "naam": "KPN Trade-in",
@@ -181,7 +186,8 @@
       "notitie": "Weiger je het nieuwe bod, dan betaal je zelf de retourzending. Kapotte toestellen krijgen een lager bod; geblokkeerde toestellen worden niet aangenomen.",
       "bron": "https://assets.recommerce.com/clc/kpn/nl/RCS_Algemene_voorwaarden_trade_in_KPN.pdf",
       "via": null,
-      "knop": "Bod opvragen"
+      "knop": "Bod opvragen",
+      "kapot_notitie": "Je krijgt een lager bod. Geblokkeerde toestellen worden niet aangenomen."
     }
   ]
 }
