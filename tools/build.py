@@ -282,6 +282,7 @@ def uitleg() -> None:
   <ul class="cards">
     <li><strong>Je iPhone klaarmaken voor verkoop</strong>Back-up, uitloggen en wissen, in de juiste volgorde.<br><a href="/uitleg/iphone-klaarmaken-voor-verkoop/">Lees de stappen</a></li>
     <li><strong>Geld of tegoed?</strong>Wanneer een cadeaubon slim is, en wanneer niet.<br><a href="/uitleg/geld-of-tegoed/">Lees meer</a></li>
+    <li><strong>Bod te laag: wat nu?</strong>Accepteren of weigeren, en bij wie je je toestel gratis terugkrijgt.<br><a href="/uitleg/bod-te-laag/">Lees meer</a></li>
     <li><strong>Kapotte telefoon verkopen</strong>Welke inkopers hem nog kopen, en hoe je hem op afstand wist.<br><a href="/uitleg/kapotte-telefoon-verkopen/">Lees meer</a></li>
     <li><strong>Een inkoper kiezen</strong>Wat er gebeurt als ze na controle minder bieden.<br><a href="/uitleg/inkoper-kiezen/">Lees meer</a></li>
     <li><strong>Goedkoopste sim only</strong>Alle aanbieders op prijs, met acties en onbeperkte data.<br><a href="/uitleg/goedkoopste-sim-only/">Lees meer</a></li>
@@ -334,7 +335,7 @@ def uitleg() -> None:
   <h2>Het bod kan lager uitvallen</h2>
   <p>Wijkt de staat af van wat je hebt ingevuld, dan krijg je een nieuw, lager bod. Dat gebeurde in een praktijkproef van de Consumentenbond uit 2017 bij 7 van de 12 ingestuurde toestellen.</p>
   <h2>Let op wat er gebeurt als je nee zegt</h2>
-  <p>Van de {len(DATA["inkopers"])} inkopers in onze vergelijking vermelden er {sum(1 for b in DATA["inkopers"] if b["retour"] == "ja")} dat ze je toestel dan gratis terugsturen. Bij KPN Trade-in betaal je de retourzending zelf, en bij de rest staat niet of het gratis is. Check dat vóór je opstuurt.</p>
+  <p>Van de {len(DATA["inkopers"])} inkopers in onze vergelijking vermelden er {sum(1 for b in DATA["inkopers"] if b["retour"] == "ja")} dat ze je toestel dan gratis terugsturen. Bij KPN Trade-in betaal je de retourzending zelf, en bij de rest staat niet of het gratis is. Check dat vóór je opstuurt. <a href="/uitleg/bod-te-laag/">Wat je doet als je bod te laag is</a>.</p>
   <h2>Zo voorkom je een tegenvaller</h2>
   <ul>
     <li>Vul de staat eerlijk in, ook kleine krassen.</li>
@@ -342,6 +343,48 @@ def uitleg() -> None:
     <li>Vraag bij twee of drie inkopers een bod aan. Er is niet één inkoper die altijd het meest biedt.</li>
   </ul>
   <p class="source">Bronnen: <a href="https://www.telecompaper.com/nieuws/grote-prijsverschillen-inkoopsites-gebruikte-smartphones--1194782" rel="nofollow noopener">Telecompaper over de praktijkproef van de Consumentenbond (2017)</a>, <a href="https://www.consumentenbond.nl/smartphone/smartphone-verkopen-online" rel="nofollow noopener">Consumentenbond, telefoon verkopen</a> (niet één inkoper biedt altijd het meest), en de bronnen per inkoper in <a href="/">de vergelijking</a>.</p>
+</article>
+""")
+
+    srt = sorted(DATA["inkopers"], key=lambda b: b["naam"].lower())
+    retour_ja = ", ".join(b["naam"] for b in srt if b["retour"] == "ja")
+    retour_nee = ", ".join(b["naam"] for b in srt if b["retour"] == "nee")
+    retour_onb = ", ".join(b["naam"] for b in srt if b["retour"] == "onbekend")
+    page("/uitleg/bod-te-laag/", "Telefoon verkocht maar bod te laag? Dit kun je doen | GadgetDeal",
+         "Krijg je na de controle een lager bod voor je telefoon? Zo kies je tussen accepteren en weigeren, en bij welke inkopers je je toestel gratis terugkrijgt.", f"""
+<article class="wrap prose">
+  <h1>Bod te laag: wat nu?</h1>
+  <p class="lead">Je hebt je telefoon opgestuurd en na de controle krijg je een lager bod dan je online zag. Dat komt vaker voor. Je hebt dan twee keuzes: het nieuwe bod accepteren of weigeren.</p>
+
+  <h2>Waarom het bod lager kan uitvallen</h2>
+  <p>Het bod dat je online krijgt, is gebaseerd op wat jij invult. De inkoper controleert daarna je toestel. Wijkt de staat af, bijvoorbeeld door krassen, een zwakkere accu of schade die je niet had gezien, dan volgt een nieuw bod. In een praktijkproef van de Consumentenbond uit 2017 gebeurde dat bij 7 van de 12 ingestuurde toestellen.</p>
+
+  <h2>Eerst: vraag waarom</h2>
+  <p>Vraag de inkoper om uitleg en, als die er zijn, foto's van wat ze gevonden hebben. Vergelijk dat met de foto's die je zelf maakte voordat je je telefoon inpakte. Kijk ook in de voorwaarden of er een termijn is waarbinnen je moet reageren.</p>
+
+  <h2>Accepteren of weigeren?</h2>
+  <ul>
+    <li><strong>Accepteren</strong> is handig als het verschil klein is, of als de inkoper gelijk heeft over de schade. Je krijgt dan snel je geld.</li>
+    <li><strong>Weigeren</strong> loont als het verschil groot is en je denkt dat je elders meer krijgt. Je toestel komt dan terug, en je kunt het bij een andere inkoper proberen.</li>
+  </ul>
+  <p>Wat weigeren je kost, verschilt per inkoper.</p>
+
+  <h2>Bij wie krijg je je toestel gratis terug?</h2>
+  <ul>
+    <li><strong>Gratis terug:</strong> {escape(retour_ja)}. Bij Leapp en Verkopen.nl staat erbij dat er voorwaarden van toepassing zijn.</li>
+    <li><strong>Zelf de retourzending betalen:</strong> {escape(retour_nee)}.</li>
+    <li><strong>Staat niet in de voorwaarden:</strong> {escape(retour_onb)}. Vraag het na voordat je opstuurt.</li>
+  </ul>
+  <p><a class="go" href="/">Bekijk de vergelijking</a> en vink 'Gratis terug bij een lager bod' aan.</p>
+
+  <h2>Zo voorkom je het de volgende keer</h2>
+  <ul>
+    <li>Vul de staat eerlijk in, ook kleine krassen en een slechtere accu.</li>
+    <li>Maak foto's van alle kanten en van het scherm aan, voordat je inpakt.</li>
+    <li>Vraag bij twee of drie inkopers een bod. <a href="/uitleg/inkoper-kiezen/">Zo kies je een inkoper</a>.</li>
+  </ul>
+
+  <p class="source">Inkopers en voorwaarden gecontroleerd op {GECONTROLEERD} op de sites van de inkopers. Praktijkproef: <a href="https://www.telecompaper.com/nieuws/grote-prijsverschillen-inkoopsites-gebruikte-smartphones--1194782" rel="nofollow noopener">Telecompaper over de Consumentenbond (2017)</a>.</p>
 </article>
 """)
 
