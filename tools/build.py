@@ -47,6 +47,7 @@ def page(path: str, title: str, description: str, body: str, scripts: str = "", 
 <title>{escape(title)}</title>
 <meta name="description" content="{escape(description)}">
 {'<meta name="robots" content="noindex, follow">' if noindex else ''}
+{'<meta name="bdfcd174c7b7649" content="eb383fc9dd353336dca0785f127b4a7e">' if path == "/" else ''}
 <link rel="canonical" href="{SITE}{path}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="{escape(title)}">
