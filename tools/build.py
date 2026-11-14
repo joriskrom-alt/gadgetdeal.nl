@@ -159,28 +159,31 @@ def home() -> None:
          body, '<script src="/assets/filter.js" defer></script>')
 
 
+NETWERKEN = [
+    ("Op het netwerk van KPN", [
+        ("KPN", "https://www.kpn.com"),
+        ("Budget Thuis Mobiel", "https://www.budgetthuis.nl"),
+        ("Lebara", "https://www.lebara.nl"),
+        ("Simyo", "https://www.simyo.nl"),
+        ("Youfone", "https://www.youfone.nl"),
+        ("Lycamobile", "https://www.lycamobile.nl"),
+    ]),
+    ("Op het netwerk van Vodafone", [
+        ("Vodafone", "https://www.vodafone.nl"),
+        ("50+ Mobiel", "https://www.50plusmobiel.nl"),
+        ("hollandsnieuwe", "https://www.hollandsnieuwe.nl"),
+    ]),
+    ("Op het netwerk van Odido", [
+        ("Odido", "https://www.odido.nl"),
+        ("Ben", "https://www.ben.nl"),
+        ("Simpel", "https://www.simpel.nl"),
+    ]),
+]
+
+
 def sim_only() -> None:
     sim_gecontroleerd = nl_datum("2026-10-28")
-    netwerken = [
-        ("Op het netwerk van KPN", [
-            ("KPN", "https://www.kpn.com"),
-            ("Budget Thuis Mobiel", "https://www.budgetthuis.nl"),
-            ("Lebara", "https://www.lebara.nl"),
-            ("Simyo", "https://www.simyo.nl"),
-            ("Youfone", "https://www.youfone.nl"),
-            ("Lycamobile", "https://www.lycamobile.nl"),
-        ]),
-        ("Op het netwerk van Vodafone", [
-            ("Vodafone", "https://www.vodafone.nl"),
-            ("50+ Mobiel", "https://www.50plusmobiel.nl"),
-            ("hollandsnieuwe", "https://www.hollandsnieuwe.nl"),
-        ]),
-        ("Op het netwerk van Odido", [
-            ("Odido", "https://www.odido.nl"),
-            ("Ben", "https://www.ben.nl"),
-            ("Simpel", "https://www.simpel.nl"),
-        ]),
-    ]
+    netwerken = NETWERKEN
     prijzen = json.loads((ROOT / "data" / "simonly.json").read_text(encoding="utf-8"))
     prijs_datum = nl_datum(prijzen["gecontroleerd"])
 
@@ -272,6 +275,7 @@ def uitleg() -> None:
     <li><strong>Geld of tegoed?</strong>Wanneer een cadeaubon slim is, en wanneer niet.<br><a href="/uitleg/geld-of-tegoed/">Lees meer</a></li>
     <li><strong>Kapotte telefoon verkopen</strong>Welke inkopers hem nog kopen, en hoe je hem op afstand wist.<br><a href="/uitleg/kapotte-telefoon-verkopen/">Lees meer</a></li>
     <li><strong>Een inkoper kiezen</strong>Wat er gebeurt als ze na controle minder bieden.<br><a href="/uitleg/inkoper-kiezen/">Lees meer</a></li>
+    <li><strong>Goedkoopste sim only</strong>Alle aanbieders op prijs, met acties en onbeperkte data.<br><a href="/uitleg/goedkoopste-sim-only/">Lees meer</a></li>
     <li><strong>Overstappen naar sim only</strong>Je nummer meenemen en wanneer je kosteloos opzegt.<br><a href="/uitleg/overstappen-naar-sim-only/">Lees meer</a></li>
     <li><strong>Hoeveel data heb ik nodig?</strong>Zo zie je je eigen verbruik en kies je de juiste bundel.<br><a href="/uitleg/hoeveel-data-heb-ik-nodig/">Lees meer</a></li>
   </ul>
@@ -485,6 +489,64 @@ def static_pages() -> None:
 """)
 
 
+def eur(t: str) -> float:
+    return float(t.replace("€", "").replace(",", "."))
+
+
+def goedkoopste_simonly() -> None:
+    prijzen = json.loads((ROOT / "data" / "simonly.json").read_text(encoding="utf-8"))
+    datum = nl_datum(prijzen["gecontroleerd"])
+    maand = datum.split(" ", 1)[1]
+    net_van = {n: t.replace("Op het netwerk van ", "") for t, l in NETWERKEN for n, _ in l}
+    url_van = {n: u for _, l in NETWERKEN for n, u in l}
+    rijen = sorted(((n, p) for n, p in prijzen["aanbieders"].items() if n in net_van), key=lambda x: (eur(x[1]["beperkt"]), x[0].lower()))
+    tabel = "".join(
+        f'<tr><th scope="row"><a href="{url_van[n]}" rel="nofollow noopener" target="_blank">{escape(n)}</a></th>'
+        f'<td>{escape(p["beperkt"])}</td><td>{escape(p["data"])}</td><td>{escape(net_van[n])}</td>'
+        f'<td>{escape(p["actie"]) if p.get("actie") else "Geen actie"}</td></tr>'
+        for n, p in rijen
+    )
+    onb = sorted(((n, p) for n, p in rijen if p.get("onbeperkt")), key=lambda x: (eur(x[1]["onbeperkt"]), x[0].lower()))
+    def bf(p):
+        zinnen = [z.strip() for z in (p.get("extra") or "").split(".") if "Black Friday" in z]
+        return (" " + escape(zinnen[0]) + ".") if zinnen else ""
+    onb_lijst = "".join(f'<li><strong>{escape(n)}</strong>: vanaf {escape(p["onbeperkt"])} per maand.{bf(p)}</li>' for n, p in onb)
+    zonder_onb = ", ".join(n for n, p in rijen if not p.get("onbeperkt"))
+    laagste = eur(rijen[0][1]["beperkt"])
+    goedkoopst = " en ".join(n for n, p in rijen if eur(p["beperkt"]) == laagste)
+    n_actie = sum(1 for _, p in rijen if p.get("actie"))
+    page("/uitleg/goedkoopste-sim-only/", f"Goedkoopste sim only van {maand} | GadgetDeal",
+         f"De goedkoopste sim-only-abonnementen van {maand} op een rij: per aanbieder de laagste prijs, de databundel en lopende acties. Zelf gecontroleerd.", f"""
+<article class="wrap prose">
+  <h1>Goedkoopste sim only van {maand}</h1>
+  <p class="lead">Alle sim-only-aanbieders uit onze vergelijking, gesorteerd op hun laagste prijs. Bij gelijke prijs staan ze op alfabet.</p>
+  <p>De laagste vanaf-prijs is nu <strong>{escape(rijen[0][1]["beperkt"])} per maand</strong>, bij {escape(goedkoopst)}. {n_actie} van de {len(rijen)} aanbieders hebben een actie, die meestal alleen de eerste maanden geldt.</p>
+
+  <h2>Alle aanbieders op prijs</h2>
+  <div class="table-scroll"><table class="simple">
+    <thead><tr><th scope="col">Aanbieder</th><th scope="col">Vanaf per maand</th><th scope="col">Data</th><th scope="col">Netwerk</th><th scope="col">Actie</th></tr></thead>
+    <tbody>{tabel}</tbody>
+  </table></div>
+  <p>De prijzen gelden voor een looptijd van 2 jaar en zijn zonder combinatievoordeel. Heb je internet thuis bij dezelfde aanbieder, dan kan het goedkoper zijn.</p>
+
+  <h2>Goedkoopste onbeperkte data</h2>
+  <ul>{onb_lijst}</ul>
+  <p>Geen onbeperkte bundel: {escape(zonder_onb)}.</p>
+
+  <h2>Waar je op let</h2>
+  <ul>
+    <li><strong>Actieprijs of vaste prijs.</strong> Een lage prijs geldt vaak alleen de eerste maanden. Kijk wat je daarna betaalt; dat is de vanaf-prijs in de tabel.</li>
+    <li><strong>Genoeg data.</strong> De goedkoopste bundel heeft vaak weinig data. <a href="/uitleg/hoeveel-data-heb-ik-nodig/">Zo zie je hoeveel je nodig hebt</a>.</li>
+    <li><strong>Het netwerk.</strong> Elke aanbieder gebruikt het netwerk van KPN, Vodafone of Odido. Kies een netwerk dat goed werkt waar jij woont en werkt.</li>
+    <li><strong>Extra's.</strong> Onbeperkt bellen, een kostenplafond of sneller internet kosten soms extra. Op de <a href="/sim-only/">sim-only-pagina</a> staat per aanbieder wat erbij hoort.</li>
+  </ul>
+  <p><a class="go" href="/sim-only/">Vergelijk alle aanbieders</a></p>
+
+  <p class="source">Prijzen gecontroleerd op {datum} op de sites van de aanbieders. Prijzen en acties veranderen vaak; check ze bij de aanbieder.</p>
+</article>
+""")
+
+
 def main() -> None:
     if OUT.exists():
         shutil.rmtree(OUT)
@@ -492,6 +554,7 @@ def main() -> None:
     shutil.copytree(ROOT / "assets", OUT / "assets")
     home()
     sim_only()
+    goedkoopste_simonly()
     uitleg()
     static_pages()
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")

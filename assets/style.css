@@ -182,3 +182,9 @@ a:hover { text-decoration-thickness: 2px; }
 .so-card .so-chips, .so-card .so-extra { margin-bottom: 16px !important; }
 .so-card .so-chips:has(+ .so-extra) { margin-bottom: 0 !important; }
 @media (max-width: 860px) { .so-highlights { grid-template-columns: 1fr; } .so-highlights strong { font-size: 1.8rem; } }
+
+.table-scroll { overflow-x: auto; margin: 16px 0; }
+table.simple { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s); font-size: 0.95rem; }
+table.simple th, table.simple td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+table.simple thead th { background: #f8f9fb; color: var(--muted); font-weight: 600; white-space: nowrap; }
+table.simple tbody th { font-weight: 700; white-space: nowrap; }
