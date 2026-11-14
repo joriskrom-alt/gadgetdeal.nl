@@ -188,3 +188,4 @@ table.simple { width: 100%; border-collapse: collapse; background: var(--surface
 table.simple th, table.simple td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
 table.simple thead th { background: #f8f9fb; color: var(--muted); font-weight: 600; white-space: nowrap; }
 table.simple tbody th { font-weight: 700; white-space: nowrap; }
+table.simple td:nth-child(2), table.simple td:nth-child(3) { white-space: nowrap; }

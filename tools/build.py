@@ -181,6 +181,15 @@ NETWERKEN = [
 ]
 
 
+def acties(p: dict) -> list:
+    uit = []
+    if p.get("actie"):
+        uit.append(p["actie"])
+    if p.get("actie_onbeperkt"):
+        uit.append(p["actie_onbeperkt"])
+    return uit
+
+
 def sim_only() -> None:
     sim_gecontroleerd = nl_datum("2026-10-28")
     netwerken = NETWERKEN
@@ -197,12 +206,12 @@ def sim_only() -> None:
         if not p:
             return ""
         bedrag = p["beperkt"].replace("€", "")
-        badge = f'<span class="so-badge">Actie</span>' if p.get("actie") else ""
-        deal = f'<p class="so-deal">{escape(p["actie"])}</p>' if p.get("actie") else ""
+        badge = f'<span class="so-badge">Actie</span>' if acties(p) else ""
+        deal = "".join(f'<p class="so-deal">{escape(a)}</p>' for a in acties(p))
         onb = (f'<span class="so-chip yes">Onbeperkt vanaf {escape(p["onbeperkt"])}</span>'
                if p.get("onbeperkt") else '<span class="so-chip">Geen onbeperkt</span>')
         extra = f'<p class="so-extra">{escape(p["extra"])}</p>' if p.get("extra") else ""
-        return f"""<li class="so-card {kleuren[net]}" data-actie="{'ja' if p.get('actie') else 'nee'}" data-onbeperkt="{'ja' if p.get('onbeperkt') else 'nee'}">
+        return f"""<li class="so-card {kleuren[net]}" data-actie="{'ja' if acties(p) else 'nee'}" data-onbeperkt="{'ja' if p.get('onbeperkt') else 'nee'}">
   <div class="so-top"><strong>{escape(n)}</strong>{badge}</div>
   <p class="so-net">Netwerk {net}</p>
   <p class="so-price"><span class="so-from">vanaf</span> <span class="so-eur">€</span><span class="so-amount">{escape(bedrag)}</span><span class="so-pm">/mnd</span></p>
@@ -220,11 +229,11 @@ def sim_only() -> None:
     laagst = laagst_alle[0]
     laagst_namen = " en ".join(f'{escape(n)} ({escape(p["data"])})' for n, p in laagst_alle)
     onbep = min((x for x in met if x[1].get("onbeperkt")), key=lambda x: eur(x[1]["onbeperkt"]))
-    n_actie = sum(1 for _, p in met if p.get("actie"))
+    n_actie = sum(1 for _, p in met if acties(p))
     uitgelicht = f"""<div class="so-highlights">
   <div><span>Laagste vanaf-prijs</span><strong>{escape(laagst[1]["beperkt"])} <small>/mnd</small></strong><em>{laagst_namen}</em></div>
   <div><span>Goedkoopste onbeperkt</span><strong>{escape(onbep[1]["onbeperkt"])} <small>/mnd</small></strong><em>{escape(onbep[0])}</em></div>
-  <div><span>Aanbieders met een actie</span><strong>{n_actie} <small>van {len(met)}</small></strong><em>Vaak alleen de eerste maanden</em></div>
+  <div><span>Aanbieders met een actie</span><strong>{n_actie} <small>van {len(met)}</small></strong><em>Vaak tijdelijk</em></div>
 </div>"""
 
     blokken = ""
@@ -503,25 +512,24 @@ def goedkoopste_simonly() -> None:
     tabel = "".join(
         f'<tr><th scope="row"><a href="{url_van[n]}" rel="nofollow noopener" target="_blank">{escape(n)}</a></th>'
         f'<td>{escape(p["beperkt"])}</td><td>{escape(p["data"])}</td><td>{escape(net_van[n])}</td>'
-        f'<td>{escape(p["actie"]) if p.get("actie") else "Geen actie"}</td></tr>'
+        f'<td>{"<br>".join(escape(a) for a in acties(p)) or "Geen actie"}</td></tr>'
         for n, p in rijen
     )
     onb = sorted(((n, p) for n, p in rijen if p.get("onbeperkt")), key=lambda x: (eur(x[1]["onbeperkt"]), x[0].lower()))
     def bf(p):
-        zinnen = [z.strip() for z in (p.get("extra") or "").split(".") if "Black Friday" in z]
-        return (" " + escape(zinnen[0]) + ".") if zinnen else ""
+        return (" " + escape(p["actie_onbeperkt"]) + ".") if p.get("actie_onbeperkt") else ""
     onb_lijst = "".join(f'<li><strong>{escape(n)}</strong>: vanaf {escape(p["onbeperkt"])} per maand.{bf(p)}</li>' for n, p in onb)
     zonder_onb = ", ".join(n for n, p in rijen if not p.get("onbeperkt"))
     laagste = eur(rijen[0][1]["beperkt"])
     goedkoopst = " en ".join(n for n, p in rijen if eur(p["beperkt"]) == laagste)
-    n_actie = sum(1 for _, p in rijen if p.get("actie"))
+    n_actie = sum(1 for _, p in rijen if acties(p))
     page("/uitleg/goedkoopste-sim-only/", f"Goedkoopste sim only van {maand} | GadgetDeal",
          f"De goedkoopste sim-only-abonnementen van {maand} op een rij: per aanbieder de laagste prijs, de databundel en lopende acties. Zelf gecontroleerd.", f"""
 <article class="wrap prose">
   <h1>Goedkoopste sim only van {maand}</h1>
   <p class="lead">Alle sim-only-aanbieders uit onze vergelijking, gesorteerd op hun laagste prijs. Bij gelijke prijs staan ze op alfabet. De volgorde hangt niet af van of wij een vergoeding krijgen.</p>
   <p class="note"><strong>Let op: alle prijzen zijn zonder combinatievoordeel.</strong> Veel aanbieders geven korting als je ook internet thuis bij hen of bij een partner hebt. Met combinatievoordeel kan de prijs dus anders uitvallen en kan de volgorde veranderen.</p>
-  <p>De laagste vanaf-prijs is nu <strong>{escape(rijen[0][1]["beperkt"])} per maand</strong>, bij {escape(goedkoopst)}. {n_actie} van de {len(rijen)} aanbieders hebben een actie, die meestal alleen de eerste maanden geldt.</p>
+  <p>De laagste vanaf-prijs is nu <strong>{escape(rijen[0][1]["beperkt"])} per maand</strong>, bij {escape(goedkoopst)}. {n_actie} van de {len(rijen)} aanbieders hebben een actie, meestal tijdelijk.</p>
 
   <h2>Alle aanbieders op prijs</h2>
   <div class="table-scroll"><table class="simple">
