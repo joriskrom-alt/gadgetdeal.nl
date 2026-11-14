@@ -479,7 +479,7 @@ def static_pages() -> None:
   <p class="lead">Een fout gezien, een inkoper die ontbreekt of een vraag over samenwerking? Mail naar <a href="mailto:info@gadgetdeal.nl">info@gadgetdeal.nl</a>.</p>
   <p>Let op: wij kopen zelf geen telefoons in. Voor vragen over een verkoop neem je contact op met de inkoper.</p>
   <h2 id="bedrijfsgegevens">Bedrijfsgegevens</h2>
-  <p>Gadgetdeal<br>Ceramplein 83<br>1095 DE Amsterdam<br>KvK-nummer: 42216076<br>E-mail: <a href="mailto:info@gadgetdeal.nl">info@gadgetdeal.nl</a></p>
+  <p>Gadgetdeal<br>Ceramplein 83<br>1095 DE Amsterdam<br>KvK-nummer: 42216076<br>Btw-id: NL005592290B47<br>E-mail: <a href="mailto:info@gadgetdeal.nl">info@gadgetdeal.nl</a></p>
 </article>
 """)
 
