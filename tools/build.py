@@ -519,7 +519,8 @@ def goedkoopste_simonly() -> None:
          f"De goedkoopste sim-only-abonnementen van {maand} op een rij: per aanbieder de laagste prijs, de databundel en lopende acties. Zelf gecontroleerd.", f"""
 <article class="wrap prose">
   <h1>Goedkoopste sim only van {maand}</h1>
-  <p class="lead">Alle sim-only-aanbieders uit onze vergelijking, gesorteerd op hun laagste prijs. Bij gelijke prijs staan ze op alfabet.</p>
+  <p class="lead">Alle sim-only-aanbieders uit onze vergelijking, gesorteerd op hun laagste prijs. Bij gelijke prijs staan ze op alfabet. De volgorde hangt niet af van of wij een vergoeding krijgen.</p>
+  <p class="note"><strong>Let op: alle prijzen zijn zonder combinatievoordeel.</strong> Veel aanbieders geven korting als je ook internet thuis bij hen of bij een partner hebt. Met combinatievoordeel kan de prijs dus anders uitvallen en kan de volgorde veranderen.</p>
   <p>De laagste vanaf-prijs is nu <strong>{escape(rijen[0][1]["beperkt"])} per maand</strong>, bij {escape(goedkoopst)}. {n_actie} van de {len(rijen)} aanbieders hebben een actie, die meestal alleen de eerste maanden geldt.</p>
 
   <h2>Alle aanbieders op prijs</h2>
@@ -527,7 +528,7 @@ def goedkoopste_simonly() -> None:
     <thead><tr><th scope="col">Aanbieder</th><th scope="col">Vanaf per maand</th><th scope="col">Data</th><th scope="col">Netwerk</th><th scope="col">Actie</th></tr></thead>
     <tbody>{tabel}</tbody>
   </table></div>
-  <p>De prijzen gelden voor een looptijd van 2 jaar en zijn zonder combinatievoordeel. Heb je internet thuis bij dezelfde aanbieder, dan kan het goedkoper zijn.</p>
+  <p>De prijzen gelden voor een looptijd van 2 jaar en zijn zonder combinatievoordeel. Heb je internet thuis bij de aanbieder of een partner ervan, kijk dan op hun site wat je met combinatievoordeel betaalt.</p>
 
   <h2>Goedkoopste onbeperkte data</h2>
   <ul>{onb_lijst}</ul>
