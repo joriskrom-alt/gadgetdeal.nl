@@ -189,3 +189,5 @@ table.simple th, table.simple td { text-align: left; vertical-align: top; paddin
 table.simple thead th { background: #f8f9fb; color: var(--muted); font-weight: 600; white-space: nowrap; }
 table.simple tbody th { font-weight: 700; white-space: nowrap; }
 table.simple td:nth-child(2), table.simple td:nth-child(3) { white-space: nowrap; }
+.so-noot { margin: 10px 0 0; }
+.so-go sup { font-size: 0.75em; margin-left: 1px; }

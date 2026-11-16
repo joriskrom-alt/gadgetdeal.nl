@@ -219,8 +219,7 @@ def sim_only() -> None:
   {deal}
   <div class="so-chips">{onb}</div>
   {extra}
-  <a class="go so-go" href="{escape(p.get("affiliate_url") or u)}" rel="{'sponsored noopener' if p.get('affiliate_url') else 'nofollow noopener'}" target="_blank">Bekijk bij {escape(n)}</a>
-  {'<span class="paid">Wij ontvangen commissie via deze link</span>' if p.get("affiliate_url") else ''}
+  <a class="go so-go" href="{escape(p.get("affiliate_url") or u)}" rel="{'sponsored noopener' if p.get('affiliate_url') else 'nofollow noopener'}" target="_blank">Bekijk bij {escape(n)}{'<sup>*</sup>' if p.get("affiliate_url") else ''}</a>
 </li>"""
 
     alle = [(n, t.replace("Op het netwerk van ", "")) for t, l in netwerken for n, _ in l]
@@ -241,7 +240,9 @@ def sim_only() -> None:
     for titel, lijst in netwerken:
         net = titel.replace("Op het netwerk van ", "")
         items = "".join(kaart(n, u, net) for n, u in lijst)
-        blokken += f'<h3 class="so-group {kleuren[net]}">{titel}</h3><ul class="so-grid">{items}</ul>'
+        noot = ('<p class="source so-noot">* Via deze link ontvangen wij commissie. De volgorde en de prijzen veranderen daardoor niet.</p>'
+                if any(prijzen["aanbieders"].get(n, {}).get("affiliate_url") for n, _ in lijst) else "")
+        blokken += f'<h3 class="so-group {kleuren[net]}">{titel}</h3><ul class="so-grid">{items}</ul>{noot}'
     body = f"""
 <div class="wrap">
   <header class="so-hero">
