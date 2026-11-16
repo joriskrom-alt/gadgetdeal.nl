@@ -1,14 +1,14 @@
 {
-  "gecontroleerd": "2026-11-09",
+  "gecontroleerd": "2026-11-16",
   "aanbieders": {
     "KPN": {
       "beperkt": "€18,50",
       "data": "10 GB",
       "looptijd": "2 jaar",
       "actie": null,
-      "onbeperkt": "€28",
+      "onbeperkt": "€27,50",
       "extra": null,
-      "actie_onbeperkt": "Black Friday op onbeperkt: €2 korting op Unlimited 400, €3 op Superunlimited"
+      "actie_onbeperkt": "Black Friday op onbeperkt: €0,50 korting op Unlimited 50, €3,50 op Unlimited 400 en €4 op Superunlimited; al verwerkt in de prijs van €27,50"
     },
     "Budget Thuis Mobiel": {
       "beperkt": "€7",
@@ -88,7 +88,7 @@
       "beperkt": "€6,50",
       "data": "5 GB",
       "looptijd": "2 jaar",
-      "actie": "Eerste 12 maanden €2,50 per maand, ook voor 60 GB",
+      "actie": "Eerste 12 maanden €1 per maand",
       "onbeperkt": null,
       "extra": "Onbeperkt bellen €1,50 per maand extra."
     },
