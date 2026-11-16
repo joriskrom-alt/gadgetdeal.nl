@@ -219,7 +219,8 @@ def sim_only() -> None:
   {deal}
   <div class="so-chips">{onb}</div>
   {extra}
-  <a class="go so-go" href="{u}" rel="nofollow noopener" target="_blank">Bekijk bij {escape(n)}</a>
+  <a class="go so-go" href="{escape(p.get("affiliate_url") or u)}" rel="{'sponsored noopener' if p.get('affiliate_url') else 'nofollow noopener'}" target="_blank">Bekijk bij {escape(n)}</a>
+  {'<span class="paid">Wij ontvangen commissie via deze link</span>' if p.get("affiliate_url") else ''}
 </li>"""
 
     alle = [(n, t.replace("Op het netwerk van ", "")) for t, l in netwerken for n, _ in l]
@@ -512,7 +513,7 @@ def static_pages() -> None:
     page("/privacy/", "Privacy | GadgetDeal", "Privacyverklaring van GadgetDeal.", """
 <article class="wrap prose">
   <h1>Privacy</h1>
-  <p class="source">Laatst bijgewerkt op 28 oktober 2026.</p>
+  <p class="source">Laatst bijgewerkt op 16 november 2026.</p>
   <h2>Wie we zijn</h2>
   <p>GadgetDeal (gadgetdeal.nl) wordt beheerd door Joris Krom. Contact: info@gadgetdeal.nl.</p>
   <h2>Welke gegevens we verwerken</h2>
@@ -522,7 +523,7 @@ def static_pages() -> None:
     <li><strong>Als je ons mailt.</strong> We gebruiken je naam, mailadres en bericht alleen om je te antwoorden. We bewaren je mail niet langer dan nodig om je vraag af te handelen.</li>
   </ul>
   <h2>Cookies</h2>
-  <p>Deze site plaatst zelf geen cookies. Klik je via een link door naar een inkoper of aanbieder, dan kan die partij of het affiliatenetwerk daar cookies plaatsen om bij te houden dat je via GadgetDeal kwam. Daarvoor geldt hun eigen cookie- en privacybeleid.</p>
+  <p>Deze site plaatst zelf geen cookies. Sommige links naar inkopers en aanbieders zijn affiliatelinks; daar staat "Wij ontvangen commissie via deze link" bij. Klik je op zo'n link, dan gaat je klik via een affiliatenetwerk, zoals Awin of Daisycon. Dat netwerk en de inkoper of aanbieder kunnen dan een cookie plaatsen om bij te houden dat je via GadgetDeal kwam, zodat wij commissie ontvangen als je iets afsluit. Je betaalt daar niets extra voor. Voor die cookies geldt het cookie- en privacybeleid van het netwerk en van de inkoper of aanbieder.</p>
   <h2>Je rechten</h2>
   <p>Je kunt ons vragen welke gegevens we van je hebben, en vragen om die te corrigeren of te verwijderen. Mail daarvoor naar info@gadgetdeal.nl. Ben je het niet eens met hoe we met je gegevens omgaan, dan kun je een klacht indienen bij de <a href="https://autoriteitpersoonsgegevens.nl" rel="nofollow noopener">Autoriteit Persoonsgegevens</a>.</p>
   <h2>Links naar andere sites</h2>
@@ -553,7 +554,7 @@ def goedkoopste_simonly() -> None:
     url_van = {n: u for _, l in NETWERKEN for n, u in l}
     rijen = sorted(((n, p) for n, p in prijzen["aanbieders"].items() if n in net_van), key=lambda x: (eur(x[1]["beperkt"]), x[0].lower()))
     tabel = "".join(
-        f'<tr><th scope="row"><a href="{url_van[n]}" rel="nofollow noopener" target="_blank">{escape(n)}</a></th>'
+        f'<tr><th scope="row"><a href="{escape(p.get("affiliate_url") or url_van[n])}" rel="{"sponsored noopener" if p.get("affiliate_url") else "nofollow noopener"}" target="_blank">{escape(n)}</a>{"<sup title=\"Wij ontvangen commissie via deze link\">*</sup>" if p.get("affiliate_url") else ""}</th>'
         f'<td>{escape(p["beperkt"])}</td><td>{escape(p["data"])}</td><td>{escape(net_van[n])}</td>'
         f'<td>{"<br>".join(escape(a) for a in acties(p)) or "Geen actie"}</td></tr>'
         for n, p in rijen
@@ -579,6 +580,7 @@ def goedkoopste_simonly() -> None:
     <thead><tr><th scope="col">Aanbieder</th><th scope="col">Vanaf per maand</th><th scope="col">Data</th><th scope="col">Netwerk</th><th scope="col">Actie</th></tr></thead>
     <tbody>{tabel}</tbody>
   </table></div>
+  <p class="source">* Via deze link ontvangen wij commissie. De volgorde verandert daardoor niet.</p>
   <p>De prijzen gelden voor een looptijd van 2 jaar en zijn zonder combinatievoordeel. Heb je internet thuis bij de aanbieder of een partner ervan, kijk dan op hun site wat je met combinatievoordeel betaalt.</p>
 
   <h2>Goedkoopste onbeperkte data</h2>
