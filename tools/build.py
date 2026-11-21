@@ -490,7 +490,7 @@ def uitleg() -> None:
 
 
 def static_pages() -> None:
-    page("/hoe-wij-vergelijken/", "Hoe wij vergelijken | GadgetDeal",
+    page("/hoe-wij-vergelijken/", "Hoe wij inkopers en sim only vergelijken | GadgetDeal",
          "Hoe GadgetDeal inkopers vergelijkt, waar de gegevens vandaan komen en hoe wij geld verdienen.", f"""
 <article class="wrap prose">
   <h1>Hoe wij vergelijken</h1>
@@ -511,7 +511,7 @@ def static_pages() -> None:
 </article>
 """)
 
-    page("/privacy/", "Privacy | GadgetDeal", "Privacyverklaring van GadgetDeal.", """
+    page("/privacy/", "Privacyverklaring en cookies | GadgetDeal", "Privacyverklaring van GadgetDeal.", """
 <article class="wrap prose">
   <h1>Privacy</h1>
   <p class="source">Laatst bijgewerkt op 16 november 2026.</p>
@@ -532,7 +532,7 @@ def static_pages() -> None:
 </article>
 """, noindex=True)
 
-    page("/contact/", "Contact | GadgetDeal", "Vraag over GadgetDeal, een inkoper die ontbreekt of een fout in de vergelijking? Mail ons via info@gadgetdeal.nl.", """
+    page("/contact/", "Contact: vraag, fout of samenwerking | GadgetDeal", "Vraag over GadgetDeal, een inkoper die ontbreekt of een fout in de vergelijking? Mail ons via info@gadgetdeal.nl.", """
 <article class="wrap prose">
   <h1>Contact</h1>
   <p class="lead">Een fout gezien, een inkoper die ontbreekt of een vraag over samenwerking? Mail naar <a href="mailto:info@gadgetdeal.nl">info@gadgetdeal.nl</a>.</p>
