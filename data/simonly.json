@@ -1,5 +1,5 @@
 {
-  "gecontroleerd": "2026-11-16",
+  "gecontroleerd": "2026-11-23",
   "aanbieders": {
     "KPN": {
       "beperkt": "€18,50",
@@ -30,7 +30,7 @@
       "beperkt": "€7,50",
       "data": "6 GB",
       "looptijd": "2 jaar",
-      "actie": "20, 30 of 40 GB de eerste 12 maanden voor €3,50 per maand",
+      "actie": "20, 30 of 40 GB de eerste 12 maanden voor €2,50 per maand",
       "onbeperkt": null,
       "extra": "Onbeperkt bellen €1 per maand extra; een dataplafond ook €1 per maand."
     },
@@ -38,7 +38,7 @@
       "beperkt": "€5",
       "data": "1 GB",
       "looptijd": "2 jaar",
-      "actie": "10, 30 of 40 GB de eerste 9 maanden voor €1 per maand",
+      "actie": "10, 30, 40 of 50 GB de eerste 9 maanden voor €1 per maand",
       "onbeperkt": null,
       "extra": "Onbeperkt bellen €1 per maand extra; dataplafond en sneller 5G €0,50 per maand."
     },
